@@ -17,11 +17,15 @@ In future versions, we will support setting other container images.
 
 After you edit the .env file, you can start the cluster by simply running:
 
+```
 # docker-compose up
+```
 
 or 
 
+```
 # docker-compose up -d
+```
 
 to spawn the process in the background (as daemon).
 
@@ -31,12 +35,15 @@ and use `bg` to leave it as a background job.
 You can check what containers are
 running via `docker-compose` with:
 
+```
 # docker-compose ps
+```
 
 To remove all containers, networks and volumes created:
 
+```
 # docker-compose down
-
+```
 
 == What if a node fails to start?
 
@@ -53,13 +60,17 @@ agustin_pxc_node03 exited with code 1
 
 In which case you can just remove the offending containers with:
 
+```
 # docker rm agustin_pxc_node02 agustin_pxc_node03
+```
 
 And then start them again one by one:
 
+```
 # docker-compose up node02
 
 # docker-compose up node03
+```
 
 
 == All the nodes are up! How can I access them?
