@@ -5,7 +5,8 @@ You can choose the network and each nodes' IP address within it.
 
 You can change the COMPOSE_PROJECT_NAME variable to be able to identify the
 network and containers created by name, in case you need to do housekeeping
-later on.
+later on (check below on how to remove all created containers, networks
+and volumes).
 
 You can also modify the PXC container versions by using the PXC_TAG variable.
 You can find the supported tags in the following link:
@@ -26,4 +27,9 @@ to spaw the process in the background. You can check what containers are
 running via `docker-compose` with:
 
 # docker-compose ps
+
+To remove all containers, networks and volumes created:
+
+# docker-compose down
+
 
