@@ -2,6 +2,7 @@ version: '2'
 services:
   node01:
     image: percona/percona-xtradb-cluster
+    container_name: pxc_node01
     networks:
       pxc_network:
         ipv4_address: 172.24.0.2
@@ -12,6 +13,7 @@ services:
             CLUSTER_JOIN:
   node02:
     image: percona/percona-xtradb-cluster
+    container_name: pxc_node02
     networks:
       pxc_network:
         ipv4_address: 172.24.0.3
@@ -24,6 +26,7 @@ services:
       - node01
   node03:
     image: percona/percona-xtradb-cluster
+    container_name: pxc_node03
     networks:
       pxc_network:
         ipv4_address: 172.24.0.4
