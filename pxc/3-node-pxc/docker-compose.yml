@@ -7,9 +7,9 @@ services:
       pxc_network:
         ipv4_address: ${NODE_1_IP_ADDRESS}
     environment:
-            CLUSTER_NAME: test_cluster
-            MYSQL_ROOT_PASSWORD: root
-            XTRABACKUP_PASSWORD: sst_pass
+            CLUSTER_NAME: ${CLUSTER_NAME}
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            XTRABACKUP_PASSWORD: ${XTRABACKUP_PASSWORD}
             CLUSTER_JOIN:
 
   node02:
@@ -19,9 +19,9 @@ services:
       pxc_network:
         ipv4_address: ${NODE_2_IP_ADDRESS}
     environment:
-            CLUSTER_NAME: test_cluster
-            MYSQL_ROOT_PASSWORD: root
-            XTRABACKUP_PASSWORD: sst_pass
+            CLUSTER_NAME: ${CLUSTER_NAME}
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            XTRABACKUP_PASSWORD: ${XTRABACKUP_PASSWORD}
             CLUSTER_JOIN: ${NODE_1_IP_ADDRESS}
     depends_on:
       - node01
@@ -33,9 +33,9 @@ services:
       pxc_network:
         ipv4_address: ${NODE_3_IP_ADDRESS}
     environment:
-            CLUSTER_NAME: test_cluster
-            MYSQL_ROOT_PASSWORD: root
-            XTRABACKUP_PASSWORD: sst_pass
+            CLUSTER_NAME: ${CLUSTER_NAME}
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            XTRABACKUP_PASSWORD: ${XTRABACKUP_PASSWORD}
             CLUSTER_JOIN: ${NODE_2_IP_ADDRESS}
     depends_on:
       - node02
