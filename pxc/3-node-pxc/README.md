@@ -1,4 +1,4 @@
-== Percona XtraDB Cluster cluster with three nodes.
+# Percona XtraDB Cluster cluster with three nodes.
 
 To use this setup, you just need to edit the variables in the .env file.
 You can choose the network and each nodes' IP address within it.
@@ -45,7 +45,7 @@ To remove all containers, networks and volumes created:
 # docker-compose down
 ```
 
-== What if a node fails to start?
+## What if a node fails to start?
 
 You may see something like the following in some cases:
 
@@ -73,7 +73,7 @@ And then start them again one by one:
 ```
 
 
-== All the nodes are up! How can I access them?
+## All the nodes are up! How can I access them?
 
 Simple enough, you can use `docker exec` to attach to any of them. For instance, to attach to node01:
 
