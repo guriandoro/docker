@@ -1,5 +1,16 @@
 # Percona XtraDB Cluster cluster with three nodes.
 
+
+## Docker and Compose versions.
+
+This setup uses version 2 for the docker-compose.yml file, so Docker 1.10.0+ and
+Compose 1.6.0+ are needed.
+
+https://docs.docker.com/compose/compose-file/#/version-2
+
+
+## Usage.
+
 To use this setup, you just need to edit the variables in the .env file.
 You can choose the network and each nodes' IP address within it.
 
@@ -9,6 +20,7 @@ later on (check below on how to remove all created containers, networks
 and volumes).
 
 You can also modify the PXC container versions by using the PXC_TAG variable.
+
 You can find the supported tags in the following link:
 
 https://hub.docker.com/r/percona/percona-xtradb-cluster/tags/
@@ -44,6 +56,7 @@ To remove all containers, networks and volumes created:
 ```
 # docker-compose down
 ```
+
 
 ## What if a node fails to start?
 
