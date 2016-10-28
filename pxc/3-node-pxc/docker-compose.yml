@@ -2,7 +2,7 @@ version: '2'
 services:
   node01:
     image: percona/percona-xtradb-cluster
-    container_name: pxc_node01
+    container_name: ${COMPOSE_PROJECT_NAME}_pxc_node01
     networks:
       pxc_network:
         ipv4_address: ${NODE_1_IP_ADDRESS}
@@ -11,9 +11,10 @@ services:
             MYSQL_ROOT_PASSWORD: root
             XTRABACKUP_PASSWORD: sst_pass
             CLUSTER_JOIN:
+
   node02:
     image: percona/percona-xtradb-cluster
-    container_name: pxc_node02
+    container_name: ${COMPOSE_PROJECT_NAME}_pxc_node02
     networks:
       pxc_network:
         ipv4_address: ${NODE_2_IP_ADDRESS}
@@ -24,9 +25,10 @@ services:
             CLUSTER_JOIN: ${NODE_1_IP_ADDRESS}
     depends_on:
       - node01
+
   node03:
     image: percona/percona-xtradb-cluster
-    container_name: pxc_node03
+    container_name: ${COMPOSE_PROJECT_NAME}_pxc_node03
     networks:
       pxc_network:
         ipv4_address: ${NODE_3_IP_ADDRESS}
