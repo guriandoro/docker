@@ -27,7 +27,7 @@ or
 # docker-compose up -d
 ```
 
-to spawn the process in the background (as daemon).
+to spawn the process in the background (in detached mode).
 
 As an alternative to using the -d switch, you can just CTRL-Z at the end of the process,
 and use `bg` to leave it as a background job.
