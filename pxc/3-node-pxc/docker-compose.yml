@@ -5,7 +5,7 @@ services:
     container_name: pxc_node01
     networks:
       pxc_network:
-        ipv4_address: 172.24.0.2
+        ipv4_address: ${NODE_1_IP_ADDRESS}
     environment:
             CLUSTER_NAME: test_cluster
             MYSQL_ROOT_PASSWORD: root
@@ -16,12 +16,12 @@ services:
     container_name: pxc_node02
     networks:
       pxc_network:
-        ipv4_address: 172.24.0.3
+        ipv4_address: ${NODE_2_IP_ADDRESS}
     environment:
             CLUSTER_NAME: test_cluster
             MYSQL_ROOT_PASSWORD: root
             XTRABACKUP_PASSWORD: sst_pass
-            CLUSTER_JOIN: '172.24.0.2'
+            CLUSTER_JOIN: ${NODE_1_IP_ADDRESS}
     depends_on:
       - node01
   node03:
@@ -29,12 +29,12 @@ services:
     container_name: pxc_node03
     networks:
       pxc_network:
-        ipv4_address: 172.24.0.4
+        ipv4_address: ${NODE_3_IP_ADDRESS}
     environment:
             CLUSTER_NAME: test_cluster
             MYSQL_ROOT_PASSWORD: root
             XTRABACKUP_PASSWORD: sst_pass
-            CLUSTER_JOIN: '172.24.0.3'
+            CLUSTER_JOIN: ${NODE_2_IP_ADDRESS}
     depends_on:
       - node02
 
@@ -44,6 +44,6 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: 172.24.0.0/24
-          gateway: 172.24.0.1
+        - subnet: ${NETWORK_SUBNET}
+          gateway: ${NETWORK_GATEWAY}
 
