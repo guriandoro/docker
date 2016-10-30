@@ -8,6 +8,7 @@ Compose 1.6.0+ are needed.
 
 https://docs.docker.com/compose/compose-file/#/version-2
 
+Tested on Docker version 1.12.1 and docker-compose version 1.8.0.
 
 ## Usage.
 
