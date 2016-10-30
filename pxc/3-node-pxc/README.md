@@ -1,15 +1,6 @@
 # Percona XtraDB Cluster cluster with three nodes.
 
 
-## Docker and Compose versions.
-
-This setup uses version 2 for the docker-compose.yml file, so Docker 1.10.0+ and
-Compose 1.6.0+ are needed.
-
-https://docs.docker.com/compose/compose-file/#/version-2
-
-Tested on Docker version 1.12.1 and docker-compose version 1.8.0.
-
 ## Usage.
 
 To use this setup, you just need to edit the variables in the .env file.
@@ -124,5 +115,5 @@ Bye
 Or just run bash, and operate from within the container directly:
 
 ```
-docker exec -it agustin_pxc_node01 /bin/bash
+# docker exec -it agustin_pxc_node01 /bin/bash
 ```
