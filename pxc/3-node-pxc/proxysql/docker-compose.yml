@@ -1,0 +1,17 @@
+version: '2'
+services:
+  proxysql_node:
+    image: percona/proxysql:${PROXYSQL_TAG}
+    container_name: ${COMPOSE_PROJECT_NAME}_proxysql_node
+    networks:
+      pxc_network:
+        ipv4_address: ${PROXYSQL_NODE_IP_ADDRESS}
+    environment:
+      CLUSTER_NAME: ${CLUSTER_NAME}
+      DISCOVERY_SERVICE: ${DISCOVERY_SERVICE}
+
+networks:
+  pxc_network:
+    external:
+      name: ${COMPOSE_PROJECT_NAME}_pxc_network
+      
