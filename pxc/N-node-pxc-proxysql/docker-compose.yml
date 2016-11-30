@@ -49,6 +49,7 @@ services:
       - etcd  
     environment:
             CLUSTER_NAME: ${CLUSTER_NAME}      
+            DISCOVERY_SERVICE: etcd
 
   nodeN:
     image: percona/percona-xtradb-cluster
