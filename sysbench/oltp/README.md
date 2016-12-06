@@ -1,4 +1,4 @@
-## Usage.
+## Usage
 
 If you have a container running mysql, you will need to check on what network it is, and what IP address it has assigned.
 You can do so with the following command:
@@ -70,4 +70,30 @@ FATAL: failed to execute function `prepare': /usr/share/doc/sysbench/tests/db/co
 
 ======= Executing sysbench [OPTIONS] run =======
 PANIC: unprotected error in call to Lua API (Failed to connect to the database)
+```
+
+## Another way of running
+
+You may find that `docker logs -f <container_name>` lags a bit while showing output, and you would prefer to get a more dynamic view of what's going on. In this case, you can simply run the container with an interactive bash shell, and run the entrypoint.sh script manually, like:
+
+```
+# docker run -it --name agustin-sysbench \
+> --network=agustinnpxc_pxc_network \
+> -e MYSQL_HOST=172.29.0.2 \
+> guriandoro/sysbench:0.5-6 /bin/bash
+[root@90e3294d7ef9 /]# sh entrypoint.sh 
+======= Using the following variables =======
+OLTP_TEST /usr/share/doc/sysbench/tests/db/oltp.lua
+OLTP_TABLE_SIZE 250000
+MYSQL_HOST 172.29.0.2
+MYSQL_USER root
+MYSQL_PASS root
+MYSQL_DB test
+REPORT_INTERVAL 1
+MAX_REQUESTS 0
+TX_RATE 10
+
+======= Executing sysbench [OPTIONS] prepare =======
+sysbench 0.5:  multi-threaded system evaluation benchmark
+...
 ```
