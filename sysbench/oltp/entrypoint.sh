@@ -32,8 +32,6 @@ echo TX_RATE $TX_RATE
 echo 
 echo ======= Executing sysbench [OPTIONS] prepare =======
 
-exit 0
-
 sysbench --test=$OLTP_TEST --mysql-host=$MYSQL_HOST --mysql-user=$MYSQL_USER --mysql-password=$MYSQL_PASS --mysql-db=$MYSQL_DB --oltp-table-size=$OLTP_TABLE_SIZE prepare
 
 echo
