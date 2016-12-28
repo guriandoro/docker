@@ -2,7 +2,7 @@ version: '2'
 services:
   node01:
     image: percona/percona-server
-    container_name: ${COMPOSE_PROJECT_NAME}_mha_node01
+    container_name: ${COMPOSE_PROJECT_NAME}_node01
     networks:
       mha_network:
         ipv4_address: ${NODE_1_IP_ADDRESS}
@@ -17,7 +17,7 @@ services:
 
   node02:
     image: percona/percona-server
-    container_name: ${COMPOSE_PROJECT_NAME}_mha_node02
+    container_name: ${COMPOSE_PROJECT_NAME}_node02
     networks:
       mha_network:
         ipv4_address: ${NODE_2_IP_ADDRESS}
@@ -34,7 +34,7 @@ services:
 
   node03:
     image: percona/percona-server
-    container_name: ${COMPOSE_PROJECT_NAME}_mha_node03
+    container_name: ${COMPOSE_PROJECT_NAME}_node03
     networks:
       mha_network:
         ipv4_address: ${NODE_3_IP_ADDRESS}
