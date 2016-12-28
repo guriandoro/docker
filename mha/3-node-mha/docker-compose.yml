@@ -9,6 +9,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     volumes:
+      - ./.ssh/:/root/.ssh/
       - ./my.cnf.node01:/etc/mysql/my.cnf
     extra_hosts:
       - "node02:${NODE_2_IP_ADDRESS}"
@@ -23,6 +24,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     volumes:
+      - ./.ssh/:/root/.ssh/
       - ./my.cnf.node02:/etc/mysql/my.cnf
     extra_hosts:
       - "node01:${NODE_1_IP_ADDRESS}"
@@ -39,6 +41,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     volumes:
+      - ./.ssh/:/root/.ssh/
       - ./my.cnf.node03:/etc/mysql/my.cnf
     extra_hosts:
       - "node01:${NODE_1_IP_ADDRESS}"
