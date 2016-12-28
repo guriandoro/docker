@@ -16,7 +16,7 @@
   remote_workdir=/var/log/masterha/app1
 
   #replication password
-  repl_password=sekret
+  repl_password=root
   log_level=debug
 
   [server1]
