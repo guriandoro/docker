@@ -7,10 +7,12 @@ services:
       pxc_network:
         ipv4_address: ${NODE_1_IP_ADDRESS}
     environment:
-            CLUSTER_NAME: ${CLUSTER_NAME}
-            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-            XTRABACKUP_PASSWORD: ${XTRABACKUP_PASSWORD}
-            CLUSTER_JOIN:
+      CLUSTER_NAME: ${CLUSTER_NAME}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      XTRABACKUP_PASSWORD: ${XTRABACKUP_PASSWORD}
+      CLUSTER_JOIN:
+    volumes:
+      - ./my.cnf.node01:/etc/mysql/my.cnf
 
   node02:
     image: percona/percona-xtradb-cluster
@@ -19,12 +21,14 @@ services:
       pxc_network:
         ipv4_address: ${NODE_2_IP_ADDRESS}
     environment:
-            CLUSTER_NAME: ${CLUSTER_NAME}
-            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-            XTRABACKUP_PASSWORD: ${XTRABACKUP_PASSWORD}
-            CLUSTER_JOIN: ${NODE_1_IP_ADDRESS}
+      CLUSTER_NAME: ${CLUSTER_NAME}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      XTRABACKUP_PASSWORD: ${XTRABACKUP_PASSWORD}
+      CLUSTER_JOIN: ${NODE_1_IP_ADDRESS}
     depends_on:
       - node01
+    volumes:
+      - ./my.cnf.node02:/etc/mysql/my.cnf
 
   node03:
     image: percona/percona-xtradb-cluster
@@ -33,12 +37,14 @@ services:
       pxc_network:
         ipv4_address: ${NODE_3_IP_ADDRESS}
     environment:
-            CLUSTER_NAME: ${CLUSTER_NAME}
-            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-            XTRABACKUP_PASSWORD: ${XTRABACKUP_PASSWORD}
-            CLUSTER_JOIN: ${NODE_2_IP_ADDRESS}
+      CLUSTER_NAME: ${CLUSTER_NAME}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      XTRABACKUP_PASSWORD: ${XTRABACKUP_PASSWORD}
+      CLUSTER_JOIN: ${NODE_2_IP_ADDRESS}
     depends_on:
       - node02
+    volumes:
+      - ./my.cnf.node03:/etc/mysql/my.cnf
 
 networks:
   pxc_network:

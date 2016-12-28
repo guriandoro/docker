@@ -1,0 +1,7 @@
+# my.cnf file to override options set in /etc/my.cnf file for node02.
+# modify at your own risk. PXC may not work well with some variables.
+#
+# Example:
+#[mysqld]
+#
+#log_bin=1
