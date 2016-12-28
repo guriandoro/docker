@@ -49,6 +49,24 @@ services:
     depends_on:
       - node02
 
+  manager:
+    image: percona/percona-server
+    container_name: ${COMPOSE_PROJECT_NAME}_manager
+    networks:
+      mha_network:
+        ipv4_address: ${MANAGER_NODE_IP_ADDRESS}
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - ./.ssh/:/root/.ssh/
+      - ./manager.cnf:/etc/manager.cnf
+    extra_hosts:
+      - "node01:${NODE_1_IP_ADDRESS}"
+      - "node02:${NODE_2_IP_ADDRESS}"
+      - "node03:${NODE_3_IP_ADDRESS}"
+    depends_on:
+      - node03
+
 networks:
   mha_network:
     driver: bridge
