@@ -1,0 +1,29 @@
+# Defaults file for manager node.
+
+
+[server default]
+  # mysql user and password
+  user=root
+  password=root
+
+  # working directory on the manager
+  manager_workdir=/var/log/masterha/app1
+
+  # manager log file
+  manager_log=/var/log/masterha/app1/app1.log
+
+  # working directory on MySQL servers
+  remote_workdir=/var/log/masterha/app1
+
+  #replication password
+  repl_password=sekret
+  log_level=debug
+
+  [server1]
+  hostname=node01
+
+  [server2]
+  hostname=node02
+
+  [server3]
+  hostname=node03
