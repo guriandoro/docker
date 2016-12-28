@@ -1,0 +1,6 @@
+# my.cnf file to override options set in /etc/my.cnf file for node01.
+#
+# Example:
+#[mysqld]
+#
+#log_bin=1

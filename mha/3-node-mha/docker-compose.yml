@@ -1,0 +1,48 @@
+version: '2'
+services:
+  node01:
+    image: percona/percona-server
+    container_name: ${COMPOSE_PROJECT_NAME}_mha_node01
+    networks:
+      mha_network:
+        ipv4_address: ${NODE_1_IP_ADDRESS}
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - ./my.cnf.node01:/etc/mysql/my.cnf
+
+  node02:
+    image: percona/percona-server
+    container_name: ${COMPOSE_PROJECT_NAME}_mha_node02
+    networks:
+      mha_network:
+        ipv4_address: ${NODE_2_IP_ADDRESS}
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - ./my.cnf.node02:/etc/mysql/my.cnf
+    depends_on:
+      - node01
+
+  node03:
+    image: percona/percona-server
+    container_name: ${COMPOSE_PROJECT_NAME}_mha_node03
+    networks:
+      mha_network:
+        ipv4_address: ${NODE_3_IP_ADDRESS}
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - ./my.cnf.node03:/etc/mysql/my.cnf
+    depends_on:
+      - node02
+
+networks:
+  mha_network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: ${NETWORK_SUBNET}
+          gateway: ${NETWORK_GATEWAY}
+
