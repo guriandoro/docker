@@ -10,7 +10,7 @@ datadir=/var/lib/mysql
 log-bin
 binlog_format=ROW
 server-id=1
-report_host=172.30.0.2
+report_host=node01
 log-slave-updates
 
 innodb_file_per_table

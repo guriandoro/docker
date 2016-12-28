@@ -10,6 +10,9 @@ services:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     volumes:
       - ./my.cnf.node01:/etc/mysql/my.cnf
+    extra_hosts:
+      - "node02:${NODE_2_IP_ADDRESS}"
+      - "node03:${NODE_3_IP_ADDRESS}"
 
   node02:
     image: percona/percona-server
@@ -21,6 +24,9 @@ services:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     volumes:
       - ./my.cnf.node02:/etc/mysql/my.cnf
+    extra_hosts:
+      - "node01:${NODE_1_IP_ADDRESS}"
+      - "node03:${NODE_3_IP_ADDRESS}"
     depends_on:
       - node01
 
@@ -34,6 +40,9 @@ services:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     volumes:
       - ./my.cnf.node03:/etc/mysql/my.cnf
+    extra_hosts:
+      - "node01:${NODE_1_IP_ADDRESS}"
+      - "node02:${NODE_2_IP_ADDRESS}"
     depends_on:
       - node02
 
