@@ -20,7 +20,7 @@ Then, you can run this container like:
 # docker run -d --name agustin-sysbench \
 --network=agustinnpxc_pxc_network \
 -e MYSQL_HOST=172.29.0.2 \
-guriandoro/sysbench:0.5-6 /entrypoint.sh
+guriandoro/sysbench:0.5-6.1 /entrypoint.sh
 ```
 
 If you are using the default network, you can ommit the `--network` argument.
@@ -80,7 +80,7 @@ You may find that `docker logs -f <container_name>` lags a bit while showing out
 # docker run -it --name agustin-sysbench \
 > --network=agustinnpxc_pxc_network \
 > -e MYSQL_HOST=172.29.0.2 \
-> guriandoro/sysbench:0.5-6 /bin/bash
+> guriandoro/sysbench:0.5-6.1 /bin/bash
 [root@90e3294d7ef9 /]# sh entrypoint.sh 
 ======= Using the following variables =======
 OLTP_TEST /usr/share/doc/sysbench/tests/db/oltp.lua
