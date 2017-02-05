@@ -97,3 +97,22 @@ TX_RATE 10
 sysbench 0.5:  multi-threaded system evaluation benchmark
 ...
 ```
+
+## Configurable variables
+
+You can check the entrypoint.sh code, or refer to the following list (although it may not be 100% updated at any time):
+
+```
+MYSQL_HOST -- this is the only variable that doesn't have a default value set, so it's compulsory 
+
+OLTP_TABLE_SIZE="${OLTP_TABLE_SIZE:-250000}"
+MYSQL_USER="${MYSQL_USER:-root}"
+MYSQL_PASS="${MYSQL_PASS:-root}"
+MYSQL_DB="${MYSQL_DB:-test}"
+
+REPORT_INTERVAL="${REPORT_INTERVAL:-1}"
+MAX_REQUESTS="${MAX_REQUESTS:-0}"
+TX_RATE="${TX_RATE:-10}"
+```
+
+To override any of these values, add them as `-e VARIABLE_NAME=value` to the `docker run` command.
