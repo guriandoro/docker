@@ -32,10 +32,25 @@ echo TX_RATE $TX_RATE
 echo 
 echo ======= Executing sysbench [OPTIONS] prepare =======
 
-sysbench --test=$OLTP_TEST --mysql-host=$MYSQL_HOST --mysql-user=$MYSQL_USER --mysql-password=$MYSQL_PASS --mysql-db=$MYSQL_DB --oltp-table-size=$OLTP_TABLE_SIZE prepare
+sysbench --test=$OLTP_TEST \
+--mysql-host=$MYSQL_HOST \
+--mysql-user=$MYSQL_USER \
+--mysql-password=$MYSQL_PASS \
+--mysql-db=$MYSQL_DB \
+--oltp-table-size=$OLTP_TABLE_SIZE \
+prepare
 
 echo
 echo ======= Executing sysbench [OPTIONS] run =======
 
-sysbench --test=$OLTP_TEST --mysql-host=$MYSQL_HOST --mysql-user=$MYSQL_USER --mysql-password=$MYSQL_PASS --mysql-db=$MYSQL_DB --oltp-table-size=$OLTP_TABLE_SIZE  --report-interval=$REPORT_INTERVAL --max-requests=$MAX_REQUESTS --tx-rate=$TX_RATE run | grep tps
+sysbench --test=$OLTP_TEST \
+--mysql-host=$MYSQL_HOST \
+--mysql-user=$MYSQL_USER \
+--mysql-password=$MYSQL_PASS \
+--mysql-db=$MYSQL_DB \
+--oltp-table-size=$OLTP_TABLE_SIZE  \
+--report-interval=$REPORT_INTERVAL \
+--max-requests=$MAX_REQUESTS \
+--tx-rate=$TX_RATE \
+run | grep tps
 
