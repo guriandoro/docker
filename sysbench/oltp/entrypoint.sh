@@ -13,6 +13,7 @@ OLTP_TEST=/usr/share/doc/sysbench/tests/db/oltp.lua
 OLTP_TABLE_SIZE="${OLTP_TABLE_SIZE:-250000}"
 OLTP_TABLES_COUNT="${OLTP_TABLES_COUNT:-1}"
 
+NUM_THREADS="${NUM_THREADS:-1}"
 REPORT_INTERVAL="${REPORT_INTERVAL:-1}"
 MAX_REQUESTS="${MAX_REQUESTS:-0}"
 TX_RATE="${TX_RATE:-10}"
@@ -27,6 +28,7 @@ echo MYSQL_HOST $MYSQL_HOST
 echo MYSQL_USER $MYSQL_USER
 echo MYSQL_PASS $MYSQL_PASS
 echo MYSQL_DB $MYSQL_DB
+echo NUM_THREADS $NUM_THREADS
 echo REPORT_INTERVAL $REPORT_INTERVAL
 echo MAX_REQUESTS $MAX_REQUESTS
 echo TX_RATE $TX_RATE
@@ -41,6 +43,7 @@ sysbench --test=$OLTP_TEST \
 --mysql-db=$MYSQL_DB \
 --oltp-table-size=$OLTP_TABLE_SIZE \
 --oltp-tables-count=$OLTP_TABLES_COUNT \
+--num-threads=$NUM_THREADS \
 prepare
 
 echo
@@ -53,6 +56,7 @@ sysbench --test=$OLTP_TEST \
 --mysql-db=$MYSQL_DB \
 --oltp-table-size=$OLTP_TABLE_SIZE  \
 --oltp-tables-count=$OLTP_TABLES_COUNT \
+--num-threads=$NUM_THREADS \
 --report-interval=$REPORT_INTERVAL \
 --max-requests=$MAX_REQUESTS \
 --tx-rate=$TX_RATE \
