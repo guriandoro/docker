@@ -25,6 +25,8 @@ guriandoro/sysbench:0.5-6.1 /entrypoint.sh
 
 If you are using the default network, you can ommit the `--network` argument.
 
+Note that you can use this even if the mysql server is not running in a container; you just have to know the IP address.
+
 ## Checking its status
 
 You can use `docker logs -f <container_name>` to check on its status. You should see something like the following, if successful:
