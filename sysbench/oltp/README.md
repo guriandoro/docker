@@ -118,33 +118,3 @@ TX_RATE="${TX_RATE:-10}"
 ```
 
 To override any of these values, add them as `-e VARIABLE_NAME=value` to the `docker run` command.
-
-
-## Using the Dockerfile to build your own image
-
-You can use the Dockerfile provided here to create your own images. It can be useful if you have modified the entrypoint.sh file, for instance, or even if you want to build a container to upload to your own repo. You can follow these 3 steps to do so:
-
-1- Build the image:
-```
-docker build -t <user_name>/<container_name>:<version/tag> .
-```
-E.g.: `docker build -t guriandoro/sysbench:0.5-6.1 .`
-
-2- Login with your Docker Hub account:
-```
-docker login 
-Login with your Docker ID to push and pull images from Docker Hub. If you don't have a Docker ID, head over to https://hub.docker.com to create one.
-Username: guriandoro
-Password: 
-Login Succeeded
-```
-
-3- Upload the image
-```
-docker push guriandoro/sysbench:0.5-6.1
-```
-
-4- Optionally, logout from your Docker Hub (especially if it's a shared server):
-```
-docker logout
-```
