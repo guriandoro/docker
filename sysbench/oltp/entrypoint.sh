@@ -8,6 +8,7 @@ fi
 MYSQL_USER="${MYSQL_USER:-root}"
 MYSQL_PASS="${MYSQL_PASS:-root}"
 MYSQL_DB="${MYSQL_DB:-test}"
+MYSQL_PORT="${MYSQL_PORT:-3306}"
 
 OLTP_TEST=/usr/share/doc/sysbench/tests/db/oltp.lua
 OLTP_TABLE_SIZE="${OLTP_TABLE_SIZE:-250000}"
@@ -28,6 +29,7 @@ echo MYSQL_HOST $MYSQL_HOST
 echo MYSQL_USER $MYSQL_USER
 echo MYSQL_PASS $MYSQL_PASS
 echo MYSQL_DB $MYSQL_DB
+echo MYSQL_PORT $MYSQL_PORT
 echo NUM_THREADS $NUM_THREADS
 echo REPORT_INTERVAL $REPORT_INTERVAL
 echo MAX_REQUESTS $MAX_REQUESTS
@@ -41,6 +43,7 @@ sysbench --test=$OLTP_TEST \
 --mysql-user=$MYSQL_USER \
 --mysql-password=$MYSQL_PASS \
 --mysql-db=$MYSQL_DB \
+--mysql-port=$MYSQL_PORT \
 --oltp-table-size=$OLTP_TABLE_SIZE \
 --oltp-tables-count=$OLTP_TABLES_COUNT \
 --num-threads=$NUM_THREADS \
@@ -54,6 +57,7 @@ sysbench --test=$OLTP_TEST \
 --mysql-user=$MYSQL_USER \
 --mysql-password=$MYSQL_PASS \
 --mysql-db=$MYSQL_DB \
+--mysql-port=$MYSQL_PORT \
 --oltp-table-size=$OLTP_TABLE_SIZE  \
 --oltp-tables-count=$OLTP_TABLES_COUNT \
 --num-threads=$NUM_THREADS \
