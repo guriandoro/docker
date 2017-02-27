@@ -27,6 +27,18 @@ If you are using the default network, you can ommit the `--network` argument.
 
 Note that you can use this even if the mysql server is not running in a container; you just have to know the IP address.
 
+To run it against a sandbox instance executing in the host, you can use (MYSQL_PORT was added in `0.5-6.2`):
+
+```
+docker run -it --name agustin-sysbench \
+--network=host \
+-e MYSQL_HOST=127.0.0.1 \
+-e MYSQL_PASS="msandbox" \
+-e MYSQL_PORT=5633 \
+-e NUM_THREADS=15 \
+guriandoro/sysbench:0.5-6.2 bash
+```
+
 ## Checking its status
 
 You can use `docker logs -f <container_name>` to check on its status. You should see something like the following, if successful:
