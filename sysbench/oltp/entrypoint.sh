@@ -43,7 +43,6 @@ echo
 
 if [ "$NO_PREPARE" -eq 1 ]; then
   echo Skipping sysbench prepare phase.
-
 else
   echo ======= Executing sysbench [OPTIONS] prepare =======
 
@@ -57,14 +56,12 @@ else
   --oltp-tables-count=$OLTP_TABLES_COUNT \
   --num-threads=$NUM_THREADS \
   prepare
-
 fi
 
 echo
 
 if [ "$NO_RUN" -eq 1 ]; then
   echo Skipping sysbench run phase.
-
 else
   echo ======= Executing sysbench [OPTIONS] run =======
 
