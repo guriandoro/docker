@@ -80,7 +80,7 @@ else
   --report-interval=$REPORT_INTERVAL \
   --max-requests=$MAX_REQUESTS \
   --tx-rate=$TX_RATE \
-  run | grep tps
+  run
 fi
 
 exit 0
