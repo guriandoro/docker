@@ -13,7 +13,7 @@ mysql_password=root
 mysql_port=3306
 ```
 
-They can all be overriden via environment variables in the `docker run` command, like:
+They can all be overridden via environment variables in the `docker run` command, like:
 
 ```
 docker run -d --name=agustin-sysbench \
@@ -24,5 +24,3 @@ docker run -d --name=agustin-sysbench \
 ...
 ```
 To see a full list of variables, check the entrypoint.sh file, or each container's documentation (disclaimer: may be incomplete).
-
-In future versions, it will be possible to set arguments for the sysbench command in the `docker run` command.
