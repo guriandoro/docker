@@ -19,6 +19,7 @@ REPORT_INTERVAL="${REPORT_INTERVAL:-1}"
 MAX_REQUESTS="${MAX_REQUESTS:-0}"
 TX_RATE="${TX_RATE:-10}"
 
+NO_PREPARE="${NO_PREPARE:-0}"
 
 echo ======= Using the following variables =======
 
@@ -34,20 +35,26 @@ echo NUM_THREADS $NUM_THREADS
 echo REPORT_INTERVAL $REPORT_INTERVAL
 echo MAX_REQUESTS $MAX_REQUESTS
 echo TX_RATE $TX_RATE
+echo NO_PREPARE $NO_PREPARE
+  
+echo
 
-echo 
-echo ======= Executing sysbench [OPTIONS] prepare =======
+if [ "$NO_PREPARE" -eq 1 ]; then
+  echo Skipping sysbench prepare fase.
+else
+  echo ======= Executing sysbench [OPTIONS] prepare =======
 
-sysbench --test=$OLTP_TEST \
---mysql-host=$MYSQL_HOST \
---mysql-user=$MYSQL_USER \
---mysql-password=$MYSQL_PASS \
---mysql-db=$MYSQL_DB \
---mysql-port=$MYSQL_PORT \
---oltp-table-size=$OLTP_TABLE_SIZE \
---oltp-tables-count=$OLTP_TABLES_COUNT \
---num-threads=$NUM_THREADS \
-prepare
+  sysbench --test=$OLTP_TEST \
+  --mysql-host=$MYSQL_HOST \
+  --mysql-user=$MYSQL_USER \
+  --mysql-password=$MYSQL_PASS \
+  --mysql-db=$MYSQL_DB \
+  --mysql-port=$MYSQL_PORT \
+  --oltp-table-size=$OLTP_TABLE_SIZE \
+  --oltp-tables-count=$OLTP_TABLES_COUNT \
+  --num-threads=$NUM_THREADS \
+  prepare
+fi
 
 echo
 echo ======= Executing sysbench [OPTIONS] run =======
