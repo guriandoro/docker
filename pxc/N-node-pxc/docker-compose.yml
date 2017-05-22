@@ -5,7 +5,6 @@ services:
     container_name: ${COMPOSE_PROJECT_NAME}_pxc_node01
     networks:
       pxc_network:
-        ipv4_address: ${NODE_1_IP_ADDRESS}
     environment:
             CLUSTER_NAME: ${CLUSTER_NAME}
             MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
@@ -20,7 +19,7 @@ services:
             CLUSTER_NAME: ${CLUSTER_NAME}
             MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
             XTRABACKUP_PASSWORD: ${XTRABACKUP_PASSWORD}
-            CLUSTER_JOIN: ${NODE_1_IP_ADDRESS}
+            CLUSTER_JOIN: ${COMPOSE_PROJECT_NAME}_pxc_node01
     depends_on:
       - node01
 
