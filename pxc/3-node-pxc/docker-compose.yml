@@ -1,7 +1,7 @@
 version: '2'
 services:
   node01:
-    image: percona/percona-xtradb-cluster
+    image: ${IMAGE}:${TAG}
     container_name: ${COMPOSE_PROJECT_NAME}_node01
     networks:
       pxc_network:
@@ -14,7 +14,7 @@ services:
       - ./my.cnf.node01:/etc/mysql/my.cnf
 
   node02:
-    image: percona/percona-xtradb-cluster
+    image: ${IMAGE}:${TAG}
     container_name: ${COMPOSE_PROJECT_NAME}_node02
     networks:
       pxc_network:
@@ -29,7 +29,7 @@ services:
       - ./my.cnf.node02:/etc/mysql/my.cnf
 
   node03:
-    image: percona/percona-xtradb-cluster
+    image: ${IMAGE}:${TAG}
     container_name: ${COMPOSE_PROJECT_NAME}_node03
     networks:
       pxc_network:
