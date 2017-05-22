@@ -15,7 +15,7 @@ services:
 
   node02:
     image: percona/percona-xtradb-cluster
-    container_name: ${NODE_01_NAME}
+    container_name: ${NODE_02_NAME}
     networks:
       pxc_network:
     environment:
@@ -30,7 +30,7 @@ services:
 
   node03:
     image: percona/percona-xtradb-cluster
-    container_name: ${NODE_01_NAME}
+    container_name: ${NODE_03_NAME}
     networks:
       pxc_network:
     environment:
