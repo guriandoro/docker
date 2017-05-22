@@ -14,7 +14,6 @@ services:
 
   nodeN:
     image: ${IMAGE}:${TAG}
-#    container_name: ${COMPOSE_PROJECT_NAME}_pxc_nodeN
     networks:
       - pxc_network
     environment:
@@ -28,9 +27,4 @@ services:
 networks:
   pxc_network:
     driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: ${NETWORK_SUBNET}
-          gateway: ${NETWORK_GATEWAY}
 
