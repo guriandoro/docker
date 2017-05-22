@@ -1,7 +1,7 @@
 version: '2'
 services:
   node01:
-    image: percona/percona-xtradb-cluster
+    image: ${IMAGE}:${TAG}
     container_name: ${COMPOSE_PROJECT_NAME}_pxc_node01
     networks:
       pxc_network:
@@ -13,7 +13,7 @@ services:
             CLUSTER_JOIN:
 
   nodeN:
-    image: percona/percona-xtradb-cluster
+    image: ${IMAGE}:${TAG}
 #    container_name: ${COMPOSE_PROJECT_NAME}_pxc_nodeN
     networks:
       - pxc_network
