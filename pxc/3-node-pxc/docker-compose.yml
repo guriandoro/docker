@@ -2,7 +2,7 @@ version: '2'
 services:
   node01:
     image: percona/percona-xtradb-cluster
-    container_name: ${NODE_01_NAME}
+    container_name: ${COMPOSE_PROJECT_NAME}_node01
     networks:
       pxc_network:
     environment:
@@ -15,14 +15,14 @@ services:
 
   node02:
     image: percona/percona-xtradb-cluster
-    container_name: ${NODE_02_NAME}
+    container_name: ${COMPOSE_PROJECT_NAME}_node02
     networks:
       pxc_network:
     environment:
       CLUSTER_NAME: ${CLUSTER_NAME}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       XTRABACKUP_PASSWORD: ${XTRABACKUP_PASSWORD}
-      CLUSTER_JOIN: ${NODE_01_NAME}
+      CLUSTER_JOIN: ${COMPOSE_PROJECT_NAME}_node01
     depends_on:
       - node01
     volumes:
@@ -30,14 +30,14 @@ services:
 
   node03:
     image: percona/percona-xtradb-cluster
-    container_name: ${NODE_03_NAME}
+    container_name: ${COMPOSE_PROJECT_NAME}_node03
     networks:
       pxc_network:
     environment:
       CLUSTER_NAME: ${CLUSTER_NAME}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       XTRABACKUP_PASSWORD: ${XTRABACKUP_PASSWORD}
-      CLUSTER_JOIN: ${NODE_02_NAME}
+      CLUSTER_JOIN: ${COMPOSE_PROJECT_NAME}_node02
     depends_on:
       - node02
     volumes:
