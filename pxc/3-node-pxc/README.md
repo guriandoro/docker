@@ -6,18 +6,16 @@
 To use this setup, you just need to edit the variables in the .env file.
 You can choose the network and each nodes' IP address within it.
 
-You can change the COMPOSE_PROJECT_NAME variable to be able to identify the
+You can change the `COMPOSE_PROJECT_NAME` variable to be able to identify the
 network and containers created by name, in case you need to do housekeeping
 later on (check below on how to remove all created containers, networks
 and volumes).
 
-You can also modify the PXC container versions by using the PXC_TAG variable.
-
-You can find the supported tags in the following link:
+You can also modify the PXC images used by editing the `IMAGE` and `TAG` variables
+in the `.env` file. You can find the supported tags for `percona/percona-xtradb-cluster`
+in the following link:
 
 https://hub.docker.com/r/percona/percona-xtradb-cluster/tags/
-
-In future versions, we will support setting other container images.
 
 After you edit the .env file, you can start the cluster by simply running:
 
