@@ -39,6 +39,8 @@ docker run -it --name agustin-sysbench \
 guriandoro/sysbench:0.5-6.2 bash
 ```
 
+You can also use `NO_PREPARE=1` and/or `NO_RUN=1` to skip the prepare and/or run phases, respectively.
+
 ## Checking its status
 
 You can use `docker logs -f <container_name>` to check on its status. You should see something like the following, if successful:
