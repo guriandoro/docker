@@ -11,7 +11,7 @@ services:
       XTRABACKUP_PASSWORD: ${XTRABACKUP_PASSWORD}
       CLUSTER_JOIN:
     volumes:
-      - ./my.cnf.node01:/etc/mysql/my.cnf
+      - ./my.cnf.node01:/etc/mysql/conf.d/my.cnf
 
   node02:
     image: ${IMAGE}:${TAG}
@@ -26,7 +26,7 @@ services:
     depends_on:
       - node01
     volumes:
-      - ./my.cnf.node02:/etc/mysql/my.cnf
+      - ./my.cnf.node02:/etc/mysql/conf.d/my.cnf
 
   node03:
     image: ${IMAGE}:${TAG}
@@ -41,9 +41,17 @@ services:
     depends_on:
       - node02
     volumes:
-      - ./my.cnf.node03:/etc/mysql/my.cnf
+      - ./my.cnf.node03:/etc/mysql/conf.d/my.cnf
 
 networks:
   pxc_network:
     driver: bridge
 
+
+# TESTING SECTION
+#volumes:
+#  small_docker_disk:
+#    external: true
+ 
+# under volumes section for each node add:
+#      - small_docker_disk:/mnt/sds
