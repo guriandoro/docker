@@ -1,5 +1,55 @@
 # Percona XtraDB Cluster cluster with three nodes.
 
+## Usage.
+
+To start the 3-node cluster, just issue:
+
+`shell> ./make_docker_3-node-pxc.sh up`
+
+This will start the 3 nodes, one at a time (with a 5-second interval in between), and will then generate some scripts for easy access to functionality. For now, it generates scripts for each node for:
+
+- Bash
+- MySQL
+- Docker inspect
+- Docker logs -f
+
+To stop the 3-node cluster, and delete everything associated to it (like the docker network and generated scripts), issue:
+
+`shell> ./make_docker_3-node-pxc.sh down`
+
+And that's it!
+
+You can change the container versions used in the `.env` file. Edit the following line:
+
+```
+TAG=5.6
+```
+This will default to whatever latest 5.6 version there is at any given moment. You can also set this to an explicit patch version, like:
+
+```
+TAG=5.6.36
+```
+
+For a list of available tags, visit https://hub.docker.com/r/percona/percona-xtradb-cluster/tags/. This is the recommended way of changing versions used. If you want to set different versions for each node, you should (apart from knowing what you are doing :)) edit them manually in the docker-compose.yml file. For instance:
+
+ ```
+  node01:
+    image: ${IMAGE}:5.7.14
+    ...
+
+  node02:
+    image: ${IMAGE}:5.7.17
+    ...
+    
+  node03:
+    image: ${IMAGE}:5.7.18
+```
+
+
+# Legacy documentation.
+
+Everything that comes below still applies, but has been somewhat deprecated by the `make_docker_3-node-pxc.sh` script. Feel free to continue reading, though, since there is good information on managing the nodes, and usage in general.
+
 
 ## Usage.
 
