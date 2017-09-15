@@ -2,7 +2,7 @@
 echo USAGE:
 echo "- first argument: 'up' or 'down'"
 echo "- second argument (optional): path to PXC docker-compose project for 3 nodes"
-echo "- second argument (optional): defaults to current working directory"
+echo "-                             defaults to current working directory"
 echo 
 
 
@@ -72,7 +72,7 @@ if [ "${UP_OR_DOWN}" == "up" ]; then
   sleep 5;
 
   echo
-  echo "Use the following commands to access BASH, MYSQL, inspect and the logs in the containers:"
+  echo "Use the following commands to access BASH, MySQL, docker inspect and logs -f on each node:"
   echo 
   for CONTAINER in `sudo docker-compose ps|grep Up|awk '{print $1}'`; do
     echo "run_bash_${CONTAINER}"
