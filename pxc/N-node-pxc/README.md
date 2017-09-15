@@ -1,23 +1,39 @@
 # Percona XtraDB Cluster cluster with dynamically variable nodes.
 
+## TL;DR
+
+Start the first node, and wait for mysql to start:
+
+```
+# docker-compose up node01
+```
+
+Start the other nodes. For a 3-node cluster, issue:
+
+```
+# docker-compose scale nodeN=2
+```
+
+Access the first node:
+
+```
+# docker exec -it agustin_N_PXC_pxc_node01 mysql -uroot -proot
+```
 
 ## Usage.
 
 To use this setup, you just need to edit the variables in the .env file.
-You can choose the network and have to assign a fixed IP address to one node.
 
-You can change the COMPOSE_PROJECT_NAME variable to be able to identify the
+You can change the `COMPOSE_PROJECT_NAME` variable to be able to identify the
 network and containers created by name, in case you need to do housekeeping
 later on (check below on how to remove all created containers, networks
 and volumes).
 
-You can also modify the PXC container versions by using the PXC_TAG variable.
-
-You can find the supported tags in the following link:
+You can also modify the PXC images used by editing the IMAGE and TAG variables in
+the .env file. You can find the supported tags for percona/percona-xtradb-cluster
+in the following link:
 
 https://hub.docker.com/r/percona/percona-xtradb-cluster/tags/
-
-In future versions, it will support setting other container images.
 
 
 ### Starting the first node:
