@@ -92,6 +92,9 @@ else
   if [ "${UP_OR_DOWN}" == "down" ]; then
     echo "Stopping containers and cleaning up..."
     sudo docker-compose down
+
+    echo "Deleting run_* scripts..."
+    rm -f run_bash_* run_mysql_* run_inspect_* run_logs_*
   fi
 fi
 
