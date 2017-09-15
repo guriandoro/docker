@@ -74,13 +74,19 @@ if [ "${UP_OR_DOWN}" == "up" ]; then
   echo
   echo "Use the following commands to access BASH, MYSQL, inspect and the logs in the containers:"
   echo 
-  for container in `sudo docker-compose ps|grep Up|awk '{print $1}'`; do
-    echo sudo docker exec -it $container bash
-    echo sudo docker exec -it $container mysql -uroot -proot
-    echo sudo docker inspect $container
-    echo sudo docker logs -f $container
+  for CONTAINER in `sudo docker-compose ps|grep Up|awk '{print $1}'`; do
+    echo "run_bash_${CONTAINER}"
+    create_script run_bash_${CONTAINER} "sudo docker exec -it ${CONTAINER} bash"
+    echo "run_mysql_${CONTAINER}"
+    create_script run_mysql_${CONTAINER} "sudo docker exec -it ${CONTAINER} mysql -uroot -proot"
+    echo "run_inspect_${CONTAINER}"
+    create_script run_inspect_${CONTAINER} "sudo docker inspect ${CONTAINER}"
+    echo "run_logs_${CONTAINER}"
+    create_script run_logs_${CONTAINER} "sudo docker logs -f ${CONTAINER}"
     echo
   done;
+
+  chmod +x run_*_*
 
 else 
   if [ "${UP_OR_DOWN}" == "down" ]; then
