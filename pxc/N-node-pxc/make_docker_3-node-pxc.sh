@@ -49,20 +49,27 @@ echo COMPOSE_PROJECT_NAME=${NAME} >> .env.swp
 mv .env.swp .env
 
 echo "PROJECT NAME: ${NAME}"
-
+echo
 
 if [ "${UP_OR_DOWN}" == "up" ]; then
-  sudo docker-compose up -d node01
-  echo "Waiting 5 seconds for first node to be up..."
-  sleep 5;
 
-  sudo docker-compose up -d node02
-  echo "Waiting 5 seconds for second node to be up..."
-  sleep 5;
+  if [ ${CLUSTER_1_NODES} -gt 0 ]; then
+      
+    sudo docker-compose up -d cluster01_node01
+    echo "Waiting 5 seconds for first node to be up..." && sleep 5
+    
+    #TODO: change for docker-compose up --scale, since this is now deprecated
+    sudo docker-compose scale cluster01_nodeN=$((${CLUSTER_1_NODES} - 1))
+  fi
 
-  sudo docker-compose up -d node03
-  echo "Waiting 5 seconds for third node to be up..."
-  sleep 5;
+  if [ ${CLUSTER_2_NODES} -gt 0 ]; then
+
+    sudo docker-compose up -d cluster02_node01
+    echo "Waiting 5 seconds for first node to be up..." && sleep 5
+
+    #TODO: change for docker-compose up --scale, since this is now deprecated
+    sudo docker-compose scale cluster02_nodeN=$((${CLUSTER_2_NODES} - 1))
+  fi
 
   echo
   echo "Use the following commands to access BASH, MySQL, docker inspect and logs -f on each node:"
@@ -90,6 +97,9 @@ else
     rm -f run_bash_* run_mysql_* run_inspect_* run_logs_*
   fi
 fi
+
+echo "Current docker-compose state:"
+sudo docker-compose ps
 
 exit 0
 
