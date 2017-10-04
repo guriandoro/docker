@@ -1,8 +1,6 @@
 #!/bin/bash
 echo USAGE:
 echo "- first argument: 'up' or 'down'"
-echo "- second argument (optional): path to PXC docker-compose project for 3 nodes"
-echo "-                             defaults to current working directory"
 echo 
 
 
@@ -26,22 +24,11 @@ if [ "$#" -lt 1 ]; then
 fi
 
 UP_OR_DOWN=${1}
-PXC_COMPOSE_PATH=${2}
-
-if [ "${PXC_COMPOSE_PATH}" != "" ] &&  [ ! -d "${PXC_COMPOSE_PATH}" ]; then
-  echo "ERROR: the second argument is not a valid directory."
-  exit 1
-else if [ "${PXC_COMPOSE_PATH}" == "" ]; then
-       PXC_COMPOSE_PATH="."
-     fi
-fi
 
 if [ "${UP_OR_DOWN}" != "up" ] && [ "${UP_OR_DOWN}" != "down" ]; then
   echo "ERROR: second argument should be either 'up' or 'down'."
   exit 1
 fi
-
-cd $PXC_COMPOSE_PATH;
 
 echo "Setting COMPOSE_PROJECT_NAME in .env file..."
 echo
