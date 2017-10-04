@@ -1,17 +1,17 @@
 version: '2'
 services:
-  node01:
+  cluster01_node01:
     image: ${IMAGE}:${TAG}
-    container_name: ${COMPOSE_PROJECT_NAME}_pxc_node01
+    container_name: ${COMPOSE_PROJECT_NAME}_pxc_cluster01_node01
     networks:
-      pxc_network:
+      - pxc_network
     environment:
             CLUSTER_NAME: ${CLUSTER_NAME}
             MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
             XTRABACKUP_PASSWORD: ${XTRABACKUP_PASSWORD}
             CLUSTER_JOIN:
 
-  nodeN:
+  cluster01_nodeN:
     image: ${IMAGE}:${TAG}
     networks:
       - pxc_network
@@ -19,9 +19,32 @@ services:
             CLUSTER_NAME: ${CLUSTER_NAME}
             MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
             XTRABACKUP_PASSWORD: ${XTRABACKUP_PASSWORD}
-            CLUSTER_JOIN: ${COMPOSE_PROJECT_NAME}_pxc_node01
+            CLUSTER_JOIN: ${COMPOSE_PROJECT_NAME}_pxc_cluster01_node01
     depends_on:
-      - node01
+      - cluster01_node01
+
+  cluster02_node01:
+    image: ${IMAGE}:${TAG}
+    container_name: ${COMPOSE_PROJECT_NAME}_pxc_cluster02_node01
+    networks:
+      - pxc_network
+    environment:
+            CLUSTER_NAME: ${CLUSTER_NAME}
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            XTRABACKUP_PASSWORD: ${XTRABACKUP_PASSWORD}
+            CLUSTER_JOIN:
+
+  cluster02_nodeN:
+    image: ${IMAGE}:${TAG}
+    networks:
+      - pxc_network
+    environment:
+            CLUSTER_NAME: ${CLUSTER_NAME}
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            XTRABACKUP_PASSWORD: ${XTRABACKUP_PASSWORD}
+            CLUSTER_JOIN: ${COMPOSE_PROJECT_NAME}_pxc_cluster02_node01
+    depends_on:
+      - cluster02_node01
 
 networks:
   pxc_network:
