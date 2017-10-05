@@ -75,13 +75,13 @@ if [ "${UP_OR_DOWN}" == "up" ]; then
   echo "Use the following commands to access BASH, MySQL, docker inspect and logs -f on each node:"
   echo 
   for CONTAINER in `sudo docker-compose ps|grep Up|awk '{print $1}'`; do
-    echo "run_bash_${CONTAINER}"
+    echo "./run_bash_${CONTAINER}"
     create_script run_bash_${CONTAINER} "sudo docker exec -it ${CONTAINER} bash"
-    echo "run_mysql_${CONTAINER}"
+    echo "./run_mysql_${CONTAINER}"
     create_script run_mysql_${CONTAINER} "sudo docker exec -it ${CONTAINER} mysql -uroot -proot"
-    echo "run_inspect_${CONTAINER}"
+    echo "./run_inspect_${CONTAINER}"
     create_script run_inspect_${CONTAINER} "sudo docker inspect ${CONTAINER}"
-    echo "run_logs_${CONTAINER}"
+    echo "./run_logs_${CONTAINER}"
     create_script run_logs_${CONTAINER} "sudo docker logs -f ${CONTAINER}"
     echo
   done;
