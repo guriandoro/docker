@@ -1,4 +1,4 @@
-# Percona XtraDB Cluster cluster with dynamically variable nodes.
+# Percona XtraDB Cluster cluster(s) with dynamically variable nodes.
 
 ## Usage.
 
@@ -33,6 +33,12 @@ NAME=`whoami`
 PWD_MD5=`pwd|md5sum`
 NAME="${NAME}.${PWD_MD5:1:6}"
 ```
+
+Lastly, the tool creates some scripts that are useful for quick access to functionality for each node like:
+- bash access
+- mysql client access
+- container log outputs
+- container inspect command
 
 
 # Legacy documentation.
