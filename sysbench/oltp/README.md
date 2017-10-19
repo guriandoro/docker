@@ -17,10 +17,10 @@ You can do so with the following command:
 Then, you can run this container like:
 
 ```
-# docker run -d --name agustin-sysbench \
+# docker run --rm -d --name agustin-sysbench \
 --network=agustinnpxc_pxc_network \
 -e MYSQL_HOST=172.29.0.2 \
-guriandoro/sysbench:0.5-6.1 /entrypoint.sh
+guriandoro/sysbench:0.5-6.3 /entrypoint.sh
 ```
 
 If you are using the default network, you can ommit the `--network` argument.
@@ -30,13 +30,13 @@ Note that you can use this even if the mysql server is not running in a containe
 To run it against a sandbox instance executing in the host, you can use (MYSQL_PORT was added in `0.5-6.2`):
 
 ```
-docker run -it --name agustin-sysbench \
+docker run --rm -it --name agustin-sysbench \
 --network=host \
 -e MYSQL_HOST=127.0.0.1 \
 -e MYSQL_PASS="msandbox" \
 -e MYSQL_PORT=5633 \
 -e NUM_THREADS=15 \
-guriandoro/sysbench:0.5-6.2 bash
+guriandoro/sysbench:0.5-6.3 bash
 ```
 
 You can also use `NO_PREPARE=1` and/or `NO_RUN=1` to skip the prepare and/or run phases, respectively.
@@ -93,7 +93,7 @@ PANIC: unprotected error in call to Lua API (Failed to connect to the database)
 You may find that `docker logs -f <container_name>` lags a bit while showing output, and you would prefer to get a more dynamic view of what's going on. In this case, you can simply run the container with an interactive bash shell, and run the entrypoint.sh script manually, like:
 
 ```
-# docker run -it --name agustin-sysbench \
+# docker run --rm -it --name agustin-sysbench \
 > --network=agustinnpxc_pxc_network \
 > -e MYSQL_HOST=172.29.0.2 \
 > guriandoro/sysbench:0.5-6.1 /bin/bash
