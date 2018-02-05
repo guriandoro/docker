@@ -46,6 +46,9 @@ echo "PROJECT NAME: ${NAME}"
 
 
 if [ "${UP_OR_DOWN}" == "up" ]; then
+  sudo docker-compose up -d etcd_node
+  sleep 1;
+
   sudo docker-compose up -d node01
   echo "Waiting 5 seconds for first node to be up..."
   sleep 5;
