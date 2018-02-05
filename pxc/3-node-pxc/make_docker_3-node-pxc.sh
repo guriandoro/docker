@@ -74,7 +74,7 @@ if [ "${UP_OR_DOWN}" == "up" ]; then
     echo
     echo "Use the following command to access MySQL on the ProxySQL node:"
     echo "run_mysql_${PROXYSQL_CONTAINER}"
-    create_script run_mysql_${PROXYSQL_CONTAINER} "sudo docker exec -it ${PROXYSQL_CONTAINER} mysql -h127.0.0.1 -P6032 -uadmin -padmin"
+    create_script run_mysql_${PROXYSQL_CONTAINER} "sudo docker exec -it ${PROXYSQL_CONTAINER} mysql -h127.0.0.1 -P6032 -uadmin -padmin \"\$@\""
   fi
 
   echo
@@ -84,7 +84,7 @@ if [ "${UP_OR_DOWN}" == "up" ]; then
     echo "run_bash_${CONTAINER}"
     create_script run_bash_${CONTAINER} "sudo docker exec -it ${CONTAINER} bash"
     echo "run_mysql_${CONTAINER}"
-    create_script run_mysql_${CONTAINER} "sudo docker exec -it ${CONTAINER} mysql -uroot -proot"
+    create_script run_mysql_${CONTAINER} "sudo docker exec -it ${CONTAINER} mysql -uroot -proot \"\$@\""
     echo "run_inspect_${CONTAINER}"
     create_script run_inspect_${CONTAINER} "sudo docker inspect ${CONTAINER}"
     echo "run_logs_${CONTAINER}"
