@@ -21,7 +21,9 @@ services:
       CLUSTER_NAME: ${CLUSTER_NAME}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       XTRABACKUP_PASSWORD: ${XTRABACKUP_PASSWORD}
-      CLUSTER_JOIN:
+      DISCOVERY_SERVICE: ${COMPOSE_PROJECT_NAME}_etcd:2379
+    depends_on:
+      - etcd_node
     volumes:
       - ./my.cnf.node01:/etc/mysql/conf.d/my.cnf
 
@@ -35,7 +37,9 @@ services:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       XTRABACKUP_PASSWORD: ${XTRABACKUP_PASSWORD}
       CLUSTER_JOIN: ${COMPOSE_PROJECT_NAME}_node01
+      DISCOVERY_SERVICE: ${COMPOSE_PROJECT_NAME}_etcd:2379
     depends_on:
+      - etcd_node
       - node01
     volumes:
       - ./my.cnf.node02:/etc/mysql/conf.d/my.cnf
@@ -50,7 +54,9 @@ services:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       XTRABACKUP_PASSWORD: ${XTRABACKUP_PASSWORD}
       CLUSTER_JOIN: ${COMPOSE_PROJECT_NAME}_node02
+      DISCOVERY_SERVICE: ${COMPOSE_PROJECT_NAME}_etcd:2379
     depends_on:
+      - etcd_node
       - node02
     volumes:
       - ./my.cnf.node03:/etc/mysql/conf.d/my.cnf
