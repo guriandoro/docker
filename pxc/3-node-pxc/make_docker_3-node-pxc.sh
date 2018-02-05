@@ -72,6 +72,7 @@ if [ "${UP_OR_DOWN}" == "up" ]; then
     PROXYSQL_CONTAINER=`sudo docker-compose ps|grep Up|grep proxy|awk '{print $1}'`
     sudo docker exec -it ${PROXYSQL_CONTAINER} add_cluster_nodes.sh
 
+    echo
     echo "Use the following command to access MySQL on the ProxySQL node:"
     echo "run_mysql_${PROXYSQL_CONTAINER}"
     create_script run_mysql_${PROXYSQL_CONTAINER} "sudo docker exec -it ${PROXYSQL_CONTAINER} mysql -h127.0.0.1 -P6032 -uadmin -padmin"
