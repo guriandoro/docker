@@ -1,5 +1,17 @@
 version: '2'
 services:
+
+  etcd_node:
+    image: quay.io/coreos/etcd:${ETCD_TAG}
+    container_name: ${COMPOSE_PROJECT_NAME}_etcd
+    networks:
+      pxc_network:
+    expose:
+      - "2379"
+      - "2380"
+      - "4001"
+    command: ["-name", "etcd0", "-advertise-client-urls", "http://127.0.0.1:2379,http://127.0.0.1:4001", "-listen-client-urls", "http://0.0.0.0:2379,http://0.0.0.0:4001", "-initial-advertise-peer-urls", "http://127.0.0.1:2380", "-listen-peer-urls", "http://0.0.0.0:2380", "-initial-cluster", "etcd0=http://127.0.0.1:2380", "-initial-cluster-token", "etcd-cluster-1", "-initial-cluster", "etcd0=http://127.0.0.1:2380", "-initial-cluster-state", "new"]
+
   node01:
     image: ${IMAGE}:${TAG}
     container_name: ${COMPOSE_PROJECT_NAME}_node01
