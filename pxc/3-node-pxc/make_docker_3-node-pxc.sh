@@ -4,6 +4,8 @@ echo "- first argument: 'up' or 'down'"
 echo "- second argument: (optional) proxy"
 echo 
 
+UP_OR_DOWN=${1}
+PROXY_UP=${2}
 
 function create_script {
 # first argument : script name
@@ -23,9 +25,6 @@ if [ "$#" -lt 1 ]; then
   echo "ERROR: Specify 'up' or 'down'."
   exit 1
 fi
-
-UP_OR_DOWN=${1}
-PROXY_UP=${2}
 
 if [ "${UP_OR_DOWN}" != "up" ] && [ "${UP_OR_DOWN}" != "down" ]; then
   echo "ERROR: second argument should be either 'up' or 'down'."
