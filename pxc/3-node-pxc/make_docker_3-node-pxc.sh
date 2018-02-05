@@ -44,22 +44,24 @@ mv .env.swp .env
 
 echo "PROJECT NAME: ${NAME}"
 
+INIT_NODE_WAIT_TIME=30
+SECONDARY_NODE_WAIT_TIME=15
 
 if [ "${UP_OR_DOWN}" == "up" ]; then
   sudo docker-compose up -d etcd_node
   sleep 1;
 
   sudo docker-compose up -d node01
-  echo "Waiting 5 seconds for first node to be up..."
-  sleep 5;
+  echo "Waiting ${INIT_NODE_WAIT_TIME} seconds for first node to be up..."
+  sleep ${INIT_NODE_WAIT_TIME};
 
   sudo docker-compose up -d node02
-  echo "Waiting 5 seconds for second node to be up..."
-  sleep 5;
+  echo "Waiting ${SECONDARY_NODE_WAIT_TIME} seconds for second node to be up..."
+  sleep ${SECONDARY_NODE_WAIT_TIME};
 
   sudo docker-compose up -d node03
-  echo "Waiting 5 seconds for third node to be up..."
-  sleep 5;
+  echo "Waiting ${SECONDARY_NODE_WAIT_TIME} seconds for third node to be up..."
+  sleep ${SECONDARY_NODE_WAIT_TIME};
 
   echo
   echo "Use the following commands to access BASH, MySQL, docker inspect and logs -f on each node:"
