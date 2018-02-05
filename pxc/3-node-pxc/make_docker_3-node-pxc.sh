@@ -65,6 +65,18 @@ if [ "${UP_OR_DOWN}" == "up" ]; then
   echo "Waiting ${SECONDARY_NODE_WAIT_TIME} seconds for third node to be up..."
   sleep ${SECONDARY_NODE_WAIT_TIME};
 
+  if [ "${PROXY_UP}" == "proxy" ]; then
+    echo "Creating and initializing ProxySQL node..."
+    sudo docker-compose up -d proxysql_node
+    sleep 2;
+    PROXYSQL_CONTAINER=`sudo docker-compose ps|grep Up|grep proxy|awk '{print $1}'`
+    sudo docker exec -it ${PROXYSQL_CONTAINER} add_cluster_nodes.sh
+
+    echo "Use the following command to access MySQL on the ProxySQL node:"
+    echo "run_mysql_${PROXYSQL_CONTAINER}"
+    create_script run_mysql_${PROXYSQL_CONTAINER} "sudo docker exec -it ${PROXYSQL_CONTAINER} mysql -h127.0.0.1 -P6032 -uadmin -padmin"
+  fi
+
   echo
   echo "Use the following commands to access BASH, MySQL, docker inspect and logs -f on each node:"
   echo 
@@ -81,17 +93,6 @@ if [ "${UP_OR_DOWN}" == "up" ]; then
   done;
 
   chmod +x run_*_*
-
-  if [ "${PROXY_UP}" == "proxy" ]; then
-    echo "Creating and initializing ProxySQL node..."
-    sudo docker-compose up -d proxysql_node
-    sleep 2;
-    PROXYSQL_CONTAINER=`sudo docker-compose ps|grep Up|grep proxy|awk '{print $1}'`
-    sudo docker exec -it ${PROXYSQL_CONTAINER} add_cluster_nodes.sh
-
-    echo "run_mysql_${PROXYSQL_CONTAINER}"
-    create_script run_mysql_${PROXYSQL_CONTAINER} "sudo docker exec -it ${PROXYSQL_CONTAINER} mysql -h127.0.0.1 -P6032 -uadmin -padmin"
-  fi
 
 else 
   if [ "${UP_OR_DOWN}" == "down" ]; then
