@@ -1,6 +1,7 @@
 #!/bin/bash
 echo USAGE:
 echo "- first argument: 'up' or 'down'"
+echo "- second argument: (optional) proxy"
 echo 
 
 
@@ -24,6 +25,7 @@ if [ "$#" -lt 1 ]; then
 fi
 
 UP_OR_DOWN=${1}
+PROXY_UP=${2}
 
 if [ "${UP_OR_DOWN}" != "up" ] && [ "${UP_OR_DOWN}" != "down" ]; then
   echo "ERROR: second argument should be either 'up' or 'down'."
@@ -79,6 +81,17 @@ if [ "${UP_OR_DOWN}" == "up" ]; then
   done;
 
   chmod +x run_*_*
+
+  if [ "${PROXY_UP}" == "proxy" ]; then
+    echo "Creating and initializing ProxySQL node..."
+    sudo docker-compose up -d proxysql_node
+    sleep 2;
+    PROXYSQL_CONTAINER=`sudo docker-compose ps|grep Up|grep proxy|awk '{print $1}'`
+    sudo docker exec -it ${PROXYSQL_CONTAINER} add_cluster_nodes.sh
+
+    echo "run_mysql_${PROXYSQL_CONTAINER}"
+    create_script run_mysql_${PROXYSQL_CONTAINER} "sudo docker exec -it ${PROXYSQL_CONTAINER} mysql -h127.0.0.1 -P6032 -uadmin -padmin"
+  fi
 
 else 
   if [ "${UP_OR_DOWN}" == "down" ]; then
