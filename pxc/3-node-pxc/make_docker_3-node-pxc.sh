@@ -81,7 +81,7 @@ if [ "${UP_OR_DOWN}" == "up" ]; then
   echo
   echo "Use the following commands to access BASH, MySQL, docker inspect and logs -f on each node:"
   echo 
-  for CONTAINER in `sudo docker-compose ps|grep Up|grep -v etcd|awk '{print $1}'`; do
+  for CONTAINER in `sudo docker-compose ps|grep Up|grep -v etcd|grep -v proxysql|awk '{print $1}'`; do
     echo "run_bash_${CONTAINER}"
     create_script run_bash_${CONTAINER} "sudo docker exec -it ${CONTAINER} bash"
     echo "run_mysql_${CONTAINER}"
