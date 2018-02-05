@@ -61,6 +61,21 @@ services:
     volumes:
       - ./my.cnf.node03:/etc/mysql/conf.d/my.cnf
 
+  proxysql_node:
+    image: percona/proxysql:${PROXYSQL_TAG}
+    container_name: ${COMPOSE_PROJECT_NAME}_proxysql
+    networks:
+      pxc_network:
+    environment:
+      CLUSTER_NAME: ${CLUSTER_NAME}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      CLUSTER_JOIN: ${COMPOSE_PROJECT_NAME}_node02
+      DISCOVERY_SERVICE: ${COMPOSE_PROJECT_NAME}_etcd:2379
+      MYSQL_PROXY_USER: ${MYSQL_PROXY_USER}
+      MYSQL_PROXY_PASSWORD: ${MYSQL_PROXY_PASSWORD}
+    depends_on:
+      - etcd_node
+
 networks:
   pxc_network:
     driver: bridge
