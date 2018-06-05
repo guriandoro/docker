@@ -104,5 +104,7 @@ else
   fi
 fi
 
+docker-compose ps
+
 exit 0
 
