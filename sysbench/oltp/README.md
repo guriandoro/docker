@@ -20,7 +20,7 @@ Then, you can run this container like:
 # docker run --rm -d --name agustin-sysbench \
 --network=agustinnpxc_pxc_network \
 -e MYSQL_HOST=172.29.0.2 \
-guriandoro/sysbench:0.5-6.3 /entrypoint.sh
+guriandoro/sysbench:0.5-6.4 /entrypoint.sh
 ```
 
 If you are using the default network, you can ommit the `--network` argument.
@@ -36,7 +36,7 @@ docker run --rm -it --name agustin-sysbench \
 -e MYSQL_PASS="msandbox" \
 -e MYSQL_PORT=5633 \
 -e NUM_THREADS=15 \
-guriandoro/sysbench:0.5-6.3 bash
+guriandoro/sysbench:0.5-6.4 bash
 ```
 
 You can also use `NO_PREPARE=1` and/or `NO_RUN=1` to skip the prepare and/or run phases, respectively.
@@ -96,7 +96,7 @@ You may find that `docker logs -f <container_name>` lags a bit while showing out
 # docker run --rm -it --name agustin-sysbench \
 > --network=agustinnpxc_pxc_network \
 > -e MYSQL_HOST=172.29.0.2 \
-> guriandoro/sysbench:0.5-6.1 /bin/bash
+> guriandoro/sysbench:0.5-6.4 /bin/bash
 [root@90e3294d7ef9 /]# sh entrypoint.sh 
 ======= Using the following variables =======
 OLTP_TEST /usr/share/doc/sysbench/tests/db/oltp.lua
