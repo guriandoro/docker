@@ -121,16 +121,23 @@ You can check the entrypoint.sh code, or refer to the following list (although i
 ```
 MYSQL_HOST -- this is the only variable that doesn't have a default value set, so it's compulsory 
 
-OLTP_TABLE_SIZE="${OLTP_TABLE_SIZE:-250000}"
 MYSQL_USER="${MYSQL_USER:-root}"
 MYSQL_PASS="${MYSQL_PASS:-root}"
 MYSQL_DB="${MYSQL_DB:-test}"
 MYSQL_PORT="${MYSQL_PORT:-3306}"
 
+OLTP_TEST="${OLTP_TEST:-/usr/share/doc/sysbench/tests/db/oltp.lua}"
+OLTP_TABLE_SIZE="${OLTP_TABLE_SIZE:-250000}"
+OLTP_TABLES_COUNT="${OLTP_TABLES_COUNT:-1}"
+
+NUM_THREADS="${NUM_THREADS:-1}"
 REPORT_INTERVAL="${REPORT_INTERVAL:-1}"
 MAX_REQUESTS="${MAX_REQUESTS:-0}"
 MAX_TIME="${MAX_TIME:-0}"
 TX_RATE="${TX_RATE:-10}"
+
+NO_PREPARE="${NO_PREPARE:-0}"
+NO_RUN="${NO_RUN:-0}"
 ```
 
 To override any of these values, add them as `-e VARIABLE_NAME=value` to the `docker run` command.
