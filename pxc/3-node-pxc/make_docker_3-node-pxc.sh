@@ -93,6 +93,7 @@ if [ "${UP_OR_DOWN}" == "up" ]; then
   done;
 
   chmod +x run_*_*
+  sudo docker-compose ps
 
 else 
   if [ "${UP_OR_DOWN}" == "down" ]; then
@@ -103,8 +104,6 @@ else
     rm -f run_bash_* run_mysql_* run_inspect_* run_logs_*
   fi
 fi
-
-docker-compose ps
 
 exit 0
 
