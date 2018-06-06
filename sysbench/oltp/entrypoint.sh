@@ -10,7 +10,7 @@ MYSQL_PASS="${MYSQL_PASS:-root}"
 MYSQL_DB="${MYSQL_DB:-test}"
 MYSQL_PORT="${MYSQL_PORT:-3306}"
 
-OLTP_TEST=/usr/share/doc/sysbench/tests/db/oltp.lua
+OLTP_TEST="${OLTP_TEST:-/usr/share/doc/sysbench/tests/db/oltp.lua}"
 OLTP_TABLE_SIZE="${OLTP_TABLE_SIZE:-250000}"
 OLTP_TABLES_COUNT="${OLTP_TABLES_COUNT:-1}"
 
