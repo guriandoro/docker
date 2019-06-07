@@ -1,0 +1,159 @@
+version: '2'
+services:
+
+  etcd_node:
+    image: quay.io/coreos/etcd:${ETCD_TAG}
+    container_name: ${COMPOSE_PROJECT_NAME}_etcd
+    networks:
+      pxc_network:
+    expose:
+      - "2379"
+      - "2380"
+      - "4001"
+    command: ["-name", "etcd0", "-advertise-client-urls", "http://127.0.0.1:2379,http://127.0.0.1:4001", "-listen-client-urls", "http://0.0.0.0:2379,http://0.0.0.0:4001", "-initial-advertise-peer-urls", "http://127.0.0.1:2380", "-listen-peer-urls", "http://0.0.0.0:2380", "-initial-cluster", "etcd0=http://127.0.0.1:2380", "-initial-cluster-token", "etcd-cluster-1", "-initial-cluster", "etcd0=http://127.0.0.1:2380", "-initial-cluster-state", "new"]
+
+  clusterA_node01:
+    image: ${IMAGE}:${TAG}
+    container_name: ${COMPOSE_PROJECT_NAME}_clusterA_node01
+    networks:
+      pxc_network:
+    environment:
+      CLUSTER_NAME: ${CLUSTER_NAME}_A
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      XTRABACKUP_PASSWORD: ${XTRABACKUP_PASSWORD}
+      DISCOVERY_SERVICE: ${COMPOSE_PROJECT_NAME}_etcd:2379
+    depends_on:
+      - etcd_node
+    volumes:
+      - ./pxc_cnf_files/my.cnf.clusterA.node01:/etc/mysql/conf.d/my.cnf
+
+  clusterA_node02:
+    image: ${IMAGE}:${TAG}
+    container_name: ${COMPOSE_PROJECT_NAME}_clusterA_node02
+    networks:
+      pxc_network:
+    environment:
+      CLUSTER_NAME: ${CLUSTER_NAME}_A
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      XTRABACKUP_PASSWORD: ${XTRABACKUP_PASSWORD}
+      DISCOVERY_SERVICE: ${COMPOSE_PROJECT_NAME}_etcd:2379
+    depends_on:
+      - etcd_node
+      - clusterA_node01
+    volumes:
+      - ./pxc_cnf_files/my.cnf.clusterA.node02:/etc/mysql/conf.d/my.cnf
+
+  clusterA_node03:
+    image: ${IMAGE}:${TAG}
+    container_name: ${COMPOSE_PROJECT_NAME}_clusterA_node03
+    networks:
+      pxc_network:
+    environment:
+      CLUSTER_NAME: ${CLUSTER_NAME}_A
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      XTRABACKUP_PASSWORD: ${XTRABACKUP_PASSWORD}
+      DISCOVERY_SERVICE: ${COMPOSE_PROJECT_NAME}_etcd:2379
+    depends_on:
+      - etcd_node
+      - clusterA_node02
+    volumes:
+      - ./pxc_cnf_files/my.cnf.clusterA.node03:/etc/mysql/conf.d/my.cnf
+
+  clusterB_node01:
+    image: ${IMAGE}:${TAG}
+    container_name: ${COMPOSE_PROJECT_NAME}_clusterB_node01
+    networks:
+      pxc_network:
+    environment:
+      CLUSTER_NAME: ${CLUSTER_NAME}_B
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      XTRABACKUP_PASSWORD: ${XTRABACKUP_PASSWORD}
+      DISCOVERY_SERVICE: ${COMPOSE_PROJECT_NAME}_etcd:2379
+    depends_on:
+      - etcd_node
+    volumes:
+      - ./pxc_cnf_files/my.cnf.clusterB.node01:/etc/mysql/conf.d/my.cnf
+
+  clusterB_node02:
+    image: ${IMAGE}:${TAG}
+    container_name: ${COMPOSE_PROJECT_NAME}_clusterB_node02
+    networks:
+      pxc_network:
+    environment:
+      CLUSTER_NAME: ${CLUSTER_NAME}_B
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      XTRABACKUP_PASSWORD: ${XTRABACKUP_PASSWORD}
+      DISCOVERY_SERVICE: ${COMPOSE_PROJECT_NAME}_etcd:2379
+    depends_on:
+      - etcd_node
+      - clusterB_node01
+    volumes:
+      - ./pxc_cnf_files/my.cnf.clusterB.node02:/etc/mysql/conf.d/my.cnf
+
+  clusterB_node03:
+    image: ${IMAGE}:${TAG}
+    container_name: ${COMPOSE_PROJECT_NAME}_clusterB_node03
+    networks:
+      pxc_network:
+    environment:
+      CLUSTER_NAME: ${CLUSTER_NAME}_B
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      XTRABACKUP_PASSWORD: ${XTRABACKUP_PASSWORD}
+      DISCOVERY_SERVICE: ${COMPOSE_PROJECT_NAME}_etcd:2379
+    depends_on:
+      - etcd_node
+      - clusterB_node02
+    volumes:
+      - ./pxc_cnf_files/my.cnf.clusterB.node03:/etc/mysql/conf.d/my.cnf
+
+  clusterC_node01:
+    image: ${IMAGE}:${TAG}
+    container_name: ${COMPOSE_PROJECT_NAME}_clusterC_node01
+    networks:
+      pxc_network:
+    environment:
+      CLUSTER_NAME: ${CLUSTER_NAME}_C
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      XTRABACKUP_PASSWORD: ${XTRABACKUP_PASSWORD}
+      DISCOVERY_SERVICE: ${COMPOSE_PROJECT_NAME}_etcd:2379
+    depends_on:
+      - etcd_node
+    volumes:
+      - ./pxc_cnf_files/my.cnf.clusterC.node01:/etc/mysql/conf.d/my.cnf
+
+  clusterC_node02:
+    image: ${IMAGE}:${TAG}
+    container_name: ${COMPOSE_PROJECT_NAME}_clusterC_node02
+    networks:
+      pxc_network:
+    environment:
+      CLUSTER_NAME: ${CLUSTER_NAME}_C
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      XTRABACKUP_PASSWORD: ${XTRABACKUP_PASSWORD}
+      DISCOVERY_SERVICE: ${COMPOSE_PROJECT_NAME}_etcd:2379
+    depends_on:
+      - etcd_node
+      - clusterC_node01
+    volumes:
+      - ./pxc_cnf_files/my.cnf.clusterC.node02:/etc/mysql/conf.d/my.cnf
+
+  clusterC_node03:
+    image: ${IMAGE}:${TAG}
+    container_name: ${COMPOSE_PROJECT_NAME}_clusterC_node03
+    networks:
+      pxc_network:
+    environment:
+      CLUSTER_NAME: ${CLUSTER_NAME}_C
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      XTRABACKUP_PASSWORD: ${XTRABACKUP_PASSWORD}
+      DISCOVERY_SERVICE: ${COMPOSE_PROJECT_NAME}_etcd:2379
+    depends_on:
+      - etcd_node
+      - clusterC_node02
+    volumes:
+      - ./pxc_cnf_files/my.cnf.clusterC.node03:/etc/mysql/conf.d/my.cnf
+
+networks:
+  pxc_network:
+    driver: bridge
+

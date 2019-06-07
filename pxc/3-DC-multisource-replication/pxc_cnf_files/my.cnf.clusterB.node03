@@ -1,0 +1,18 @@
+# my.cnf file to override options set in /etc/my.cnf file for node03.
+# modify at your own risk. PXC may not work well with some variables.
+#
+
+[mysqld]
+
+master-info-repository              = TABLE
+relay-log-info-repository           = TABLE
+
+server-id                           = 200
+
+gtid-mode                           = ON
+enforce-gtid-consistency            = ON
+
+innodb_buffer_pool_size=256M
+log_bin = mysql_bin
+log_slave_updates
+replicate_ignore_db=mysql
