@@ -9,7 +9,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     volumes:
-      - ./mysql_cnf_files/my.cnf.master:/etc/mysql/conf.d/my.cnf
+      - ./cnf_files/my.cnf.master:/etc/mysql/conf.d/my.cnf
 
   slave01:
     image: ${MYSQL_IMAGE}:${MYSQL_TAG}
@@ -21,7 +21,7 @@ services:
     depends_on:
       - master
     volumes:
-      - ./mysql_cnf_files/my.cnf.slave01:/etc/mysql/conf.d/my.cnf
+      - ./cnf_files/my.cnf.slave01:/etc/mysql/conf.d/my.cnf
 
   slave02:
     image: ${MYSQL_IMAGE}:${MYSQL_TAG}
@@ -33,7 +33,7 @@ services:
     depends_on:
       - master
     volumes:
-      - ./mysql_cnf_files/my.cnf.slave02:/etc/mysql/conf.d/my.cnf
+      - ./cnf_files/my.cnf.slave02:/etc/mysql/conf.d/my.cnf
 
 networks:
   orch_network:
