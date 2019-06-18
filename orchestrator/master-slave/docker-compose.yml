@@ -1,0 +1,41 @@
+version: '2'
+services:
+
+  master:
+    image: ${MYSQL_IMAGE}:${MYSQL_TAG}
+    container_name: ${COMPOSE_PROJECT_NAME}_master
+    networks:
+      orch_network:
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - ./mysql_cnf_files/my.cnf.master:/etc/mysql/conf.d/my.cnf
+
+  slave01:
+    image: ${MYSQL_IMAGE}:${MYSQL_TAG}
+    container_name: ${COMPOSE_PROJECT_NAME}_slave01
+    networks:
+      orch_network:
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    depends_on:
+      - master
+    volumes:
+      - ./mysql_cnf_files/my.cnf.slave01:/etc/mysql/conf.d/my.cnf
+
+  slave02:
+    image: ${MYSQL_IMAGE}:${MYSQL_TAG}
+    container_name: ${COMPOSE_PROJECT_NAME}_slave02
+    networks:
+      orch_network:
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    depends_on:
+      - master
+    volumes:
+      - ./mysql_cnf_files/my.cnf.slave02:/etc/mysql/conf.d/my.cnf
+
+networks:
+  orch_network:
+    driver: bridge
+

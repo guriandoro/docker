@@ -1,0 +1,19 @@
+# my.cnf file to override options set in /etc/my.cnf file for slave
+
+[mysqld]
+
+server_id = 2
+
+log_bin = mysql-bin
+log-slave-updates
+binlog_format = ROW
+
+innodb_buffer_pool_size = 64MB
+master-info-repository=TABLE
+relay-log-info-repository=TABLE
+
+skip-slave-start
+
+report-port=3306
+report-host="orchestrator_slave02"
+

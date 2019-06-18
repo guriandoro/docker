@@ -1,0 +1,8 @@
+# my.cnf file to override options set in /etc/my.cnf file for node01.
+
+[mysqld]
+
+server_id = 2
+
+innodb_use_native_aio = 0
+
