@@ -1,9 +1,0 @@
-# my.cnf file to override options set in /etc/my.cnf file for the master
-#
-[mysqld]
-
-log_bin
-server_id = 1
-
-innodb_use_native_aio = 0
-

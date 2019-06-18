@@ -2,7 +2,7 @@
 
 [mysqld]
 
-server_id = 2
+server_id = 101
 
 log_bin = mysql-bin
 log-slave-updates
