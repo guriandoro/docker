@@ -27,7 +27,7 @@ if [ "$#" -lt 1 ]; then
 fi
 
 if [ "${UP_OR_DOWN}" != "up" ] && [ "${UP_OR_DOWN}" != "down" ]; then
-  echo "ERROR: second argument should be either 'up' or 'down'."
+  echo "ERROR: first argument should be either 'up' or 'down'."
   exit 1
 fi
 
@@ -35,7 +35,8 @@ echo "Setting COMPOSE_PROJECT_NAME in .env file..."
 echo
 
 
-NAME=`whoami`
+NAME=`whoami|cut -d '.' -f 1`
+#NAME=`whoami`
 PWD_MD5=`pwd|md5sum`
 NAME="${NAME}.${PWD_MD5:1:6}"
 
@@ -50,7 +51,7 @@ SECONDARY_NODE_WAIT_TIME=15
 
 if [ "${UP_OR_DOWN}" == "up" ]; then
   docker-compose up -d etcd_node
-  sleep 1;
+  sleep 5;
 
   docker-compose up -d node01
   echo "Waiting ${INIT_NODE_WAIT_TIME} seconds for first node to be up..."
@@ -72,9 +73,12 @@ if [ "${UP_OR_DOWN}" == "up" ]; then
     docker exec -it ${PROXYSQL_CONTAINER} add_cluster_nodes.sh
 
     echo
-    echo "Use the following command to access MySQL on the ProxySQL node:"
+    echo "Use the following commands to access MySQL on the ProxySQL node:"
+    echo 
+    echo "run_mysql_${PROXYSQL_CONTAINER}_admin"
+    create_script run_mysql_${PROXYSQL_CONTAINER}_admin "docker exec -it ${PROXYSQL_CONTAINER} mysql -h127.0.0.1 -P6032 -uadmin -padmin \"\$@\""
     echo "run_mysql_${PROXYSQL_CONTAINER}"
-    create_script run_mysql_${PROXYSQL_CONTAINER} "docker exec -it ${PROXYSQL_CONTAINER} mysql -h127.0.0.1 -P6032 -uadmin -padmin \"\$@\""
+    create_script run_mysql_${PROXYSQL_CONTAINER} "docker exec -it ${PROXYSQL_CONTAINER} mysql -h127.0.0.1 -P3306 -uproxyuser -pproxypass \"\$@\""
   fi
 
   echo
