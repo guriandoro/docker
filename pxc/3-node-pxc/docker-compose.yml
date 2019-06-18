@@ -27,7 +27,7 @@ services:
     depends_on:
       - etcd_node
     volumes:
-      - ./my.cnf.node01:/etc/mysql/conf.d/my.cnf
+      - ./pxc_cnf_files/my.cnf.node01:/etc/mysql/conf.d/my.cnf
 
   node02:
     image: ${IMAGE}:${TAG}
@@ -44,7 +44,7 @@ services:
       - etcd_node
       - node01
     volumes:
-      - ./my.cnf.node02:/etc/mysql/conf.d/my.cnf
+      - ./pxc_cnf_files/my.cnf.node02:/etc/mysql/conf.d/my.cnf
 
   node03:
     image: ${IMAGE}:${TAG}
@@ -61,7 +61,7 @@ services:
       - etcd_node
       - node02
     volumes:
-      - ./my.cnf.node03:/etc/mysql/conf.d/my.cnf
+      - ./pxc_cnf_files/my.cnf.node03:/etc/mysql/conf.d/my.cnf
 
   proxysql_node:
     image: percona/proxysql:${PROXYSQL_TAG}
