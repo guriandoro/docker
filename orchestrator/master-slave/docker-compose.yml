@@ -4,6 +4,7 @@ services:
   master:
     image: ${MYSQL_IMAGE}:${MYSQL_TAG}
     container_name: ${COMPOSE_PROJECT_NAME}_master
+    hostname: ${COMPOSE_PROJECT_NAME}_master
     networks:
       orch_network:
     environment:
@@ -14,6 +15,7 @@ services:
   slave01:
     image: ${MYSQL_IMAGE}:${MYSQL_TAG}
     container_name: ${COMPOSE_PROJECT_NAME}_slave01
+    hostname: ${COMPOSE_PROJECT_NAME}_slave01
     networks:
       orch_network:
     environment:
@@ -26,6 +28,7 @@ services:
   slave02:
     image: ${MYSQL_IMAGE}:${MYSQL_TAG}
     container_name: ${COMPOSE_PROJECT_NAME}_slave02
+    hostname: ${COMPOSE_PROJECT_NAME}_slave02
     networks:
       orch_network:
     environment:
@@ -38,14 +41,18 @@ services:
   orchestrator:
     image: ${ORCHESTRATOR_IMAGE}:${ORCHESTRATOR_TAG}
     container_name: ${COMPOSE_PROJECT_NAME}_orchestrator
+    hostname: ${COMPOSE_PROJECT_NAME}_orchestrator
     networks:
       orch_network:
-    publish:
+    ports:
+      #- 3000:3000
       - 3000
+    depends_on:
+      - slave02
     volumes:
-#      - ./cnf_files/orchestrator.cnf:/etc/TODO.cnf
+      - ./cnf_files/orchestrator.cnf:/usr/local/orchestrator/orchestrator.conf.json
 
-    networks:
-      orch_network:
-          driver: bridge
+networks:
+  orch_network:
+    driver: bridge
 
