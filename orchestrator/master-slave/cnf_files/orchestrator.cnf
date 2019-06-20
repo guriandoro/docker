@@ -2,7 +2,7 @@
   "Debug": true,
   "EnableSyslog": false,
   "ListenAddress": ":3000",
-  "MySQLTopologyUser": "orcUSer",
+  "MySQLTopologyUser": "orcUser",
   "MySQLTopologyPassword": "orcPass1234#",
   "MySQLTopologyCredentialsConfigFile": "",
   "MySQLTopologySSLPrivateKeyFile": "",
