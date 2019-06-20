@@ -21,6 +21,10 @@ EXEC_MASTER="docker exec ${MASTER_NODE} mysql -uroot -proot -e "
 EXEC_SLAVE01="docker exec ${SLAVE01_NODE} mysql -uroot -proot -e "
 EXEC_SLAVE02="docker exec ${SLAVE02_NODE} mysql -uroot -proot -e "
 
+sed -i "s/report-host=\".*\"/report-host=\"${MASTER_NODE}\"/" cnf_files/my.cnf.master
+sed -i "s/report-host=\".*\"/report-host=\"${SLAVE01_NODE}\"/" cnf_files/my.cnf.slave01
+sed -i "s/report-host=\".*\"/report-host=\"${SLAVE02_NODE}\"/" cnf_files/my.cnf.slave02
+
 docker-compose up -d
 
 echo "---> Waiting 10 seconds for nodes to be up..."

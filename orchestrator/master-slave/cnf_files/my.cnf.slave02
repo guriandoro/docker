@@ -15,5 +15,5 @@ relay-log-info-repository=TABLE
 skip-slave-start
 
 report-port=3306
-report-host="orchestrator_slave02"
+report-host="orchestrator_agustin.73b9f7_slave02"
 
