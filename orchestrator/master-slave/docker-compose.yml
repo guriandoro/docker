@@ -3,8 +3,8 @@ services:
 
   master:
     image: ${MYSQL_IMAGE}:${MYSQL_TAG}
-    container_name: ${COMPOSE_PROJECT_NAME}_master
-    hostname: ${COMPOSE_PROJECT_NAME}_master
+    container_name: orchestrator_${COMPOSE_PROJECT_NAME}_master
+    hostname: orchestrator_${COMPOSE_PROJECT_NAME}_master
     networks:
       orch_network:
     environment:
@@ -14,8 +14,8 @@ services:
 
   slave01:
     image: ${MYSQL_IMAGE}:${MYSQL_TAG}
-    container_name: ${COMPOSE_PROJECT_NAME}_slave01
-    hostname: ${COMPOSE_PROJECT_NAME}_slave01
+    container_name: orchestrator_${COMPOSE_PROJECT_NAME}_slave01
+    hostname: orchestrator_${COMPOSE_PROJECT_NAME}_slave01
     networks:
       orch_network:
     environment:
@@ -27,8 +27,8 @@ services:
 
   slave02:
     image: ${MYSQL_IMAGE}:${MYSQL_TAG}
-    container_name: ${COMPOSE_PROJECT_NAME}_slave02
-    hostname: ${COMPOSE_PROJECT_NAME}_slave02
+    container_name: orchestrator_${COMPOSE_PROJECT_NAME}_slave02
+    hostname: orchestrator_${COMPOSE_PROJECT_NAME}_slave02
     networks:
       orch_network:
     environment:
@@ -40,8 +40,8 @@ services:
 
   orchestrator:
     image: ${ORCHESTRATOR_IMAGE}:${ORCHESTRATOR_TAG}
-    container_name: ${COMPOSE_PROJECT_NAME}_orchestrator
-    hostname: ${COMPOSE_PROJECT_NAME}_orchestrator
+    container_name: orchestrator_${COMPOSE_PROJECT_NAME}_orchestrator
+    hostname: orchestrator_${COMPOSE_PROJECT_NAME}_orchestrator
     networks:
       orch_network:
     ports:

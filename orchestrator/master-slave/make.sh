@@ -1,9 +1,21 @@
 #!/bin/bash
 
-MASTER_NODE='orchestrator_master'
-SLAVE01_NODE='orchestrator_slave01'
-SLAVE02_NODE='orchestrator_slave02'
-ORCHESTRATOR_NODE='orchestrator_orchestrator'
+
+# ------- Set docker-compose project name -------
+NAME=`whoami|cut -d '.' -f 1`
+#NAME=`whoami`
+PWD_MD5=`pwd|md5sum`
+NAME="${NAME}.${PWD_MD5:1:6}"
+
+grep -v COMPOSE_PROJECT_NAME .env > .env.swp
+echo COMPOSE_PROJECT_NAME=${NAME} >> .env.swp
+mv .env.swp .env
+# -------
+
+MASTER_NODE="orchestrator_${NAME}_master"
+SLAVE01_NODE="orchestrator_${NAME}_slave01"
+SLAVE02_NODE="orchestrator_${NAME}_slave02"
+ORCHESTRATOR_NODE="orchestrator_${NAME}_orchestrator"
 
 EXEC_MASTER="docker exec ${MASTER_NODE} mysql -uroot -proot -e "
 EXEC_SLAVE01="docker exec ${SLAVE01_NODE} mysql -uroot -proot -e "
