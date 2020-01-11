@@ -97,14 +97,14 @@
     "echo 'Detected {failureType} on {failureCluster}. Affected replicas: {countSlaves}' >> /tmp/recovery.log"
   ],
   "PreFailoverProcesses": [
-    "/usr/local/bin/orc_prefailover.py"
+    "echo 'Will recover from {failureType} on {failureCluster}' >> /tmp/recovery.log"
   ],
   "PostFailoverProcesses": [
     "echo '(for all types) Recovered from {failureType} on {failureCluster}. Failed: {failedHost}:{failedPort}; Successor: {successorHost}:{successorPort}' >> /tmp/recovery.log"
   ],
   "PostUnsuccessfulFailoverProcesses": [],
   "PostMasterFailoverProcesses": [
-    "/usr/local/bin/orc_postfailover.py"
+    "echo '(for all types) Recovered from {failureType} on {failureCluster}. Failed: {failedHost}:{failedPort}; Successor: {successorHost}:{successorPort}' >> /tmp/recovery.log"
   ],
   "PostIntermediateMasterFailoverProcesses": [
     "echo 'Recovered from {failureType} on {failureCluster}. Failed: {failedHost}:{failedPort}; Successor: {successorHost}:{successorPort}' >> /tmp/recovery.log"
