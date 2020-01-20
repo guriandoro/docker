@@ -4,13 +4,13 @@
 
 To start all containers just issue:
 
-`shell> ./make.sh`
+`shell> ./make.sh up`
 
 This will start the master node, the two slaves, and the orchestrator.
 
 To stop and remove everything, use:
 
-`shell> docker-compose down`
+`shell> ./make.sh down`
 
 You can change the container versions used in the `.env` file.
 
