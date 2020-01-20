@@ -105,7 +105,6 @@
   "PostUnsuccessfulFailoverProcesses": [],
   "PostMasterFailoverProcesses": [
      "echo '(for all types) Recovered from {failureType} on {failureCluster}. Failed: {failedHost}:{failedPort}; Successor: {successorHost}:{successorPort}' >> /tmp/recovery.log"
-
   ],
   "PostIntermediateMasterFailoverProcesses": [
     "echo 'Recovered from {failureType} on {failureCluster}. Failed: {failedHost}:{failedPort}; Successor: {successorHost}:{successorPort}' >> /tmp/recovery.log"
