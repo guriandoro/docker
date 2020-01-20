@@ -88,10 +88,10 @@
   "RecoveryPeriodBlockSeconds": 10,
   "RecoveryIgnoreHostnameFilters": [],
   "RecoverMasterClusterFilters": [
-    "enterprise"
+    "*"
   ],
   "RecoverIntermediateMasterClusterFilters": [
-    "_intermediate_master_pattern_"
+    "*"
   ],
   "OnFailureDetectionProcesses": [
     "echo 'Detected {failureType} on {failureCluster}. Affected replicas: {countSlaves}' >> /tmp/recovery.log"
