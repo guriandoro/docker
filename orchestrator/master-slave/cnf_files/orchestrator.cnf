@@ -94,19 +94,24 @@
     "*"
   ],
   "OnFailureDetectionProcesses": [
+    "date >> /tmp/recovery.log",
     "echo 'Detected {failureType} on {failureCluster}. Affected replicas: {countSlaves}' >> /tmp/recovery.log"
   ],
   "PreFailoverProcesses": [
-        "echo 'Will recover from {failureType} on {failureCluster}' >> /tmp/recovery.log"
+    "date >> /tmp/recovery.log",
+    "echo 'Will recover from {failureType} on {failureCluster}' >> /tmp/recovery.log"
   ],
   "PostFailoverProcesses": [
+    "date >> /tmp/recovery.log",
     "echo '(for all types) Recovered from {failureType} on {failureCluster}. Failed: {failedHost}:{failedPort}; Successor: {successorHost}:{successorPort}' >> /tmp/recovery.log"
   ],
   "PostUnsuccessfulFailoverProcesses": [],
   "PostMasterFailoverProcesses": [
-     "echo '(for all types) Recovered from {failureType} on {failureCluster}. Failed: {failedHost}:{failedPort}; Successor: {successorHost}:{successorPort}' >> /tmp/recovery.log"
+    "date >> /tmp/recovery.log",
+    "echo '(for all types) Recovered from {failureType} on {failureCluster}. Failed: {failedHost}:{failedPort}; Successor: {successorHost}:{successorPort}' >> /tmp/recovery.log"
   ],
   "PostIntermediateMasterFailoverProcesses": [
+    "date >> /tmp/recovery.log",
     "echo 'Recovered from {failureType} on {failureCluster}. Failed: {failedHost}:{failedPort}; Successor: {successorHost}:{successorPort}' >> /tmp/recovery.log"
   ],
   "CoMasterRecoveryMustPromoteOtherCoMaster": true,
@@ -120,5 +125,6 @@
   "GraphiteAddr": "",
   "GraphitePath": "",
   "GraphiteConvertHostnameDotsToUnderscores": true,
-  "FailMasterPromotionIfSQLThreadNotUpToDate": true
+  "FailMasterPromotionIfSQLThreadNotUpToDate": false,
+  "DelayMasterPromotionIfSQLThreadNotUpToDate": false
 }

@@ -71,35 +71,36 @@ echo "---> Waiting 30 seconds for nodes to be up..."
 sleep 30;
 
 echo "---> Creating repl user in master"
-${EXEC_MASTER} "CREATE USER 'repl'@'%' IDENTIFIED BY 'repl'"
-${EXEC_MASTER} "GRANT REPLICATION SLAVE ON *.* TO 'repl'@'%'"
+${EXEC_MASTER} "CREATE USER 'repl'@'%' IDENTIFIED BY 'repl'" 2>&1 | grep -v "Using a password"
+${EXEC_MASTER} "GRANT REPLICATION SLAVE ON *.* TO 'repl'@'%'" 2>&1 | grep -v "Using a password"
 
 #${EXEC_MASTER} "show master status"
 
-echo "---> Executing CHANGE MASTER TO"
+echo "---> Setting up slaves"
 ${EXEC_SLAVE01} "CHANGE MASTER TO MASTER_HOST='${MASTER_NODE}', \
 MASTER_USER='repl', MASTER_PASSWORD='repl', \
-MASTER_LOG_FILE='mysql-bin.000003', MASTER_LOG_POS=154, MASTER_CONNECT_RETRY=1"
+MASTER_LOG_FILE='mysql-bin.000003', MASTER_LOG_POS=154" 2>&1 | grep -v "Using a password"
 
-${EXEC_SLAVE01} "START SLAVE"
+${EXEC_SLAVE01} "START SLAVE" 2>&1 | grep -v "Using a password"
 
 ${EXEC_SLAVE02} "CHANGE MASTER TO MASTER_HOST='${MASTER_NODE}', \
 MASTER_USER='repl', MASTER_PASSWORD='repl', \
-MASTER_LOG_FILE='mysql-bin.000003', MASTER_LOG_POS=154, MASTER_CONNECT_RETRY=1"
+MASTER_LOG_FILE='mysql-bin.000003', MASTER_LOG_POS=154" 2>&1 | grep -v "Using a password"
 
-${EXEC_SLAVE02} "START SLAVE"
+${EXEC_SLAVE02} "START SLAVE" 2>&1 | grep -v "Using a password"
 
 echo "---> Setting up Orchestrator"
-${EXEC_MASTER} "CREATE USER 'orcUser'@'%' IDENTIFIED BY 'orcPass1234#'"
-${EXEC_MASTER} "GRANT SUPER, PROCESS, REPLICATION SLAVE, REPLICATION CLIENT, RELOAD ON *.* TO 'orcUser'@'%'"
-${EXEC_MASTER} "GRANT DROP ON _pseudo_gtid_.* to 'orcUser'@'%'"
-${EXEC_MASTER} "GRANT SELECT ON mysql.slave_master_info TO 'orcUser'@'%'"
-${EXEC_MASTER} "GRANT SELECT ON meta.* TO 'orcUser'@'%'"
-${EXEC_MASTER} "CREATE DATABASE meta;"
+${EXEC_MASTER} "CREATE USER 'orcUser'@'%' IDENTIFIED BY 'orcPass1234#'" 2>&1 | grep -v "Using a password"
+${EXEC_MASTER} "GRANT SUPER, PROCESS, REPLICATION SLAVE, REPLICATION CLIENT, RELOAD ON *.* TO 'orcUser'@'%'" \
+2>&1 | grep -v "Using a password"
+${EXEC_MASTER} "GRANT DROP ON _pseudo_gtid_.* to 'orcUser'@'%'" 2>&1 | grep -v "Using a password"
+${EXEC_MASTER} "GRANT SELECT ON mysql.slave_master_info TO 'orcUser'@'%'" 2>&1 | grep -v "Using a password"
+${EXEC_MASTER} "GRANT SELECT ON meta.* TO 'orcUser'@'%'" 2>&1 | grep -v "Using a password"
+${EXEC_MASTER} "CREATE DATABASE meta;" 2>&1 | grep -v "Using a password"
 ${EXEC_MASTER} "CREATE TABLE IF NOT EXISTS meta.cluster (anchor TINYINT NOT NULL, cluster_name VARCHAR(128) \
 CHARSET ascii NOT NULL DEFAULT '', cluster_domain VARCHAR(128) CHARSET ascii NOT NULL DEFAULT '', \
-PRIMARY KEY (anchor))"
-${EXEC_MASTER} "INSERT INTO meta.cluster VALUES (1, 'percona', 'support')"
+PRIMARY KEY (anchor))" 2>&1 | grep -v "Using a password"
+${EXEC_MASTER} "INSERT INTO meta.cluster VALUES (1, 'percona', 'support')" 2>&1 | grep -v "Using a password"
 
 docker exec ${ORCHESTRATOR_NODE} /usr/local/orchestrator/orchestrator -c discover -i "${MASTER_NODE}"
 
