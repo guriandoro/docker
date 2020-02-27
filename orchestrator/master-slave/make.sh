@@ -1,27 +1,38 @@
 #!/bin/bash
 
-echo USAGE:
-echo "- first argument: 'up' or 'down'"
-echo
-
 UP_OR_DOWN=${1}
 
 function create_script {
-# first argument : script name
-# second argument: script content
-SCRIPT_NAME=${1}
-SCRIPT_CONTENT=${2}
+  # first argument : script name
+  # second argument: script content
+  SCRIPT_NAME=${1}
+  SCRIPT_CONTENT=${2}
 
-# DANGER! will overwrite existing file, if any
-echo "#!/bin/bash" > ${SCRIPT_NAME}
-echo "" >> ${SCRIPT_NAME}
-echo "${SCRIPT_CONTENT}" >>  ${SCRIPT_NAME}
-echo "" >> ${SCRIPT_NAME}
+  # DANGER! will overwrite existing file, if any
+  echo "#!/bin/bash" > ${SCRIPT_NAME}
+  echo "" >> ${SCRIPT_NAME}
+  echo "${SCRIPT_CONTENT}" >>  ${SCRIPT_NAME}
+  echo "" >> ${SCRIPT_NAME}
 }
 
+function check_mysql_online {
+  # arguments: container to run on
+  RUN_SCRIPT=${1}
+  while [ true ]; do
+    echo -n "."
+    docker exec ${RUN_SCRIPT} mysqladmin -uroot -proot ping 2>/dev/null | grep "mysqld is alive"
+    RUN_SCRIPT_RET=$?
+    if [ ${RUN_SCRIPT_RET} -eq 0 ]; then
+      break;
+    fi
+    sleep 1;
+  done
+  echo
+}
 
 if [ "$#" -lt 1 ]; then
-  echo "ERROR: Specify 'up' or 'down'."
+  echo "USAGE:"
+  echo "- first argument: 'up' or 'down'"
   exit 1
 fi
 
@@ -67,21 +78,26 @@ sed -i "s/report-host=\".*\"/report-host=\"${SLAVE02_NODE}\"/" cnf_files/my.cnf.
 
 docker-compose up -d
 
-echo "---> Waiting 30 seconds for nodes to be up..."
-sleep 30;
+echo "---> Waiting for master node to be up..."
+check_mysql_online ${MASTER_NODE}
 
 echo "---> Creating repl user in master"
 ${EXEC_MASTER} "CREATE USER 'repl'@'%' IDENTIFIED BY 'repl'" 2>&1 | grep -v "Using a password"
 ${EXEC_MASTER} "GRANT REPLICATION SLAVE ON *.* TO 'repl'@'%'" 2>&1 | grep -v "Using a password"
 
-#${EXEC_MASTER} "show master status"
-
 echo "---> Setting up slaves"
+
+echo "---> Waiting for slave01 to be up..."
+check_mysql_online ${SLAVE01_NODE}
+
 ${EXEC_SLAVE01} "CHANGE MASTER TO MASTER_HOST='${MASTER_NODE}', \
 MASTER_USER='repl', MASTER_PASSWORD='repl', \
 MASTER_LOG_FILE='mysql-bin.000003', MASTER_LOG_POS=154" 2>&1 | grep -v "Using a password"
 
 ${EXEC_SLAVE01} "START SLAVE" 2>&1 | grep -v "Using a password"
+
+echo "---> Waiting for slave02 to be up..."
+check_mysql_online ${SLAVE02_NODE}
 
 ${EXEC_SLAVE02} "CHANGE MASTER TO MASTER_HOST='${MASTER_NODE}', \
 MASTER_USER='repl', MASTER_PASSWORD='repl', \
@@ -90,6 +106,7 @@ MASTER_LOG_FILE='mysql-bin.000003', MASTER_LOG_POS=154" 2>&1 | grep -v "Using a 
 ${EXEC_SLAVE02} "START SLAVE" 2>&1 | grep -v "Using a password"
 
 echo "---> Setting up Orchestrator"
+
 ${EXEC_MASTER} "CREATE USER 'orcUser'@'%' IDENTIFIED BY 'orcPass1234#'" 2>&1 | grep -v "Using a password"
 ${EXEC_MASTER} "GRANT SUPER, PROCESS, REPLICATION SLAVE, REPLICATION CLIENT, RELOAD ON *.* TO 'orcUser'@'%'" \
 2>&1 | grep -v "Using a password"
