@@ -66,7 +66,7 @@ fi
 MASTER_NODE="orchestrator_${NAME}_master"
 SLAVE01_NODE="orchestrator_${NAME}_slave01"
 SLAVE02_NODE="orchestrator_${NAME}_slave02"
-ORCHESTRATOR_NODE="orchestrator_${NAME}_orchestrator"
+ORCHESTRATOR_NODE="orchestrator_${NAME}_orchestrator01"
 
 EXEC_MASTER="docker exec ${MASTER_NODE} mysql -uroot -proot -e "
 EXEC_SLAVE01="docker exec ${SLAVE01_NODE} mysql -uroot -proot -e "
@@ -77,6 +77,7 @@ sed -i "s/report-host=\".*\"/report-host=\"${SLAVE01_NODE}\"/" cnf_files/my.cnf.
 sed -i "s/report-host=\".*\"/report-host=\"${SLAVE02_NODE}\"/" cnf_files/my.cnf.slave02
 
 docker-compose up -d
+#docker-compose up -d --scale orchestrator=3
 
 echo "---> Waiting for master node to be up..."
 check_mysql_online ${MASTER_NODE}
@@ -119,7 +120,9 @@ CHARSET ascii NOT NULL DEFAULT '', cluster_domain VARCHAR(128) CHARSET ascii NOT
 PRIMARY KEY (anchor))" 2>&1 | grep -v "Using a password"
 ${EXEC_MASTER} "INSERT INTO meta.cluster VALUES (1, 'percona', 'support')" 2>&1 | grep -v "Using a password"
 
-docker exec ${ORCHESTRATOR_NODE} /usr/local/orchestrator/orchestrator -c discover -i "${MASTER_NODE}"
+
+docker exec -e ORCHESTRATOR_API="http://localhost:3000/api" ${ORCHESTRATOR_NODE} \
+  /usr/local/orchestrator/resources/bin/orchestrator-client -c discover -i "${MASTER_NODE}"
 
 echo
 echo "Use the following commands to access BASH, MySQL, docker inspect and logs -f on each node:"
@@ -140,4 +143,3 @@ chmod +x run_*_*
 docker-compose ps
 
 exit 0
-

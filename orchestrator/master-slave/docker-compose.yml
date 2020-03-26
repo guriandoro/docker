@@ -38,20 +38,44 @@ services:
     volumes:
       - ./cnf_files/my.cnf.slave02:/etc/my.cnf
 
-  orchestrator:
+  orchestrator01:
     image: ${ORCHESTRATOR_IMAGE}:${ORCHESTRATOR_TAG}
-    container_name: orchestrator_${COMPOSE_PROJECT_NAME}_orchestrator
-    hostname: orchestrator_${COMPOSE_PROJECT_NAME}_orchestrator
+    container_name: orchestrator_${COMPOSE_PROJECT_NAME}_orchestrator01
+    hostname: orchestrator_${COMPOSE_PROJECT_NAME}_orchestrator_1
     networks:
       orch_network:
     ports:
-      #- 3000:3000
       - 3000
     depends_on:
       - slave02
     volumes:
-      - ./cnf_files/orchestrator.cnf:/usr/local/orchestrator/orchestrator.conf.json
-      - ./cnf_files/orchestrator.cnf:/etc/orchestrator.conf.json
+      - ./cnf_files/orchestrator_1.cnf:/etc/orchestrator.conf.json
+
+  orchestrator02:
+    image: ${ORCHESTRATOR_IMAGE}:${ORCHESTRATOR_TAG}
+    container_name: orchestrator_${COMPOSE_PROJECT_NAME}_orchestrator02
+    hostname: orchestrator_${COMPOSE_PROJECT_NAME}_orchestrator_2
+    networks:
+      orch_network:
+    ports:
+      - 3000
+    depends_on:
+      - slave02
+    volumes:
+      - ./cnf_files/orchestrator_2.cnf:/etc/orchestrator.conf.json
+
+  orchestrator03:
+    image: ${ORCHESTRATOR_IMAGE}:${ORCHESTRATOR_TAG}
+    container_name: orchestrator_${COMPOSE_PROJECT_NAME}_orchestrator03
+    hostname: orchestrator_${COMPOSE_PROJECT_NAME}_orchestrator_3
+    networks:
+      orch_network:
+    ports:
+      - 3000
+    depends_on:
+      - slave02
+    volumes:
+      - ./cnf_files/orchestrator_3.cnf:/etc/orchestrator.conf.json
 
 networks:
   orch_network:

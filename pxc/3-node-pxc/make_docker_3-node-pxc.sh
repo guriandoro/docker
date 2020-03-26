@@ -66,6 +66,12 @@ if [ "${UP_OR_DOWN}" == "up" ]; then
   sleep ${SECONDARY_NODE_WAIT_TIME};
 
   if [ "${PROXY_UP}" == "proxy" ]; then
+    source .env
+    echo "Creating monitor user in PXC..."
+    PXC_NODE=`docker-compose ps|grep Up|grep node01|awk '{print $1}'`
+    docker exec -it ${PXC_NODE} mysql -uroot -p${MYSQL_ROOT_PASSWORD} -e "create user 'monitor'@'%' identified by 'monitor'"
+    docker exec -it ${PXC_NODE} mysql -uroot -p${MYSQL_ROOT_PASSWORD} -e "grant all on *.* to 'monitor'@'%'"
+
     echo "Creating and initializing ProxySQL node..."
     docker-compose up -d proxysql_node
     sleep 2;
