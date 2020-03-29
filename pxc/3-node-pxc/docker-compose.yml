@@ -64,7 +64,7 @@ services:
       - ./pxc_cnf_files/my.cnf.node03:/etc/mysql/conf.d/my.cnf
 
   proxysql_node:
-    image: percona/proxysql:${PROXYSQL_TAG}
+    image: ${PROXYSQL_IMAGE}:${PROXYSQL_TAG}
     container_name: ${COMPOSE_PROJECT_NAME}_proxysql
     networks:
       pxc_network:
