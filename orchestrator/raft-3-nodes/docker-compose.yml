@@ -2,7 +2,7 @@ version: '3.5'
 services:
   orchestrator01:
     image: ${ORCHESTRATOR_IMAGE}:${ORCHESTRATOR_TAG}
-    container_name: orchestrator_${COMPOSE_PROJECT_NAME}_orchestrator01
+    container_name: orchestrator_${COMPOSE_PROJECT_NAME}_orchestrator_1
     hostname: orchestrator_${COMPOSE_PROJECT_NAME}_orchestrator_1
     networks:
       orch_network:
@@ -13,7 +13,7 @@ services:
 
   orchestrator02:
     image: ${ORCHESTRATOR_IMAGE}:${ORCHESTRATOR_TAG}
-    container_name: orchestrator_${COMPOSE_PROJECT_NAME}_orchestrator02
+    container_name: orchestrator_${COMPOSE_PROJECT_NAME}_orchestrator_2
     hostname: orchestrator_${COMPOSE_PROJECT_NAME}_orchestrator_2
     networks:
       orch_network:
@@ -26,7 +26,7 @@ services:
 
   orchestrator03:
     image: ${ORCHESTRATOR_IMAGE}:${ORCHESTRATOR_TAG}
-    container_name: orchestrator_${COMPOSE_PROJECT_NAME}_orchestrator03
+    container_name: orchestrator_${COMPOSE_PROJECT_NAME}_orchestrator_3
     hostname: orchestrator_${COMPOSE_PROJECT_NAME}_orchestrator_3
     networks:
       orch_network:
