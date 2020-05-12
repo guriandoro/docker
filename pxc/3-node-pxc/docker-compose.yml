@@ -68,6 +68,9 @@ services:
     container_name: ${COMPOSE_PROJECT_NAME}_proxysql
     networks:
       pxc_network:
+    ports:
+      - 6033
+      - 6032
     environment:
       CLUSTER_NAME: ${CLUSTER_NAME}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
