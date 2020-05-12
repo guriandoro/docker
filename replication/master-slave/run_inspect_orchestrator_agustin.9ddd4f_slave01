@@ -1,4 +1,0 @@
-#!/bin/bash
-
-docker inspect orchestrator_agustin.9ddd4f_slave01
-
