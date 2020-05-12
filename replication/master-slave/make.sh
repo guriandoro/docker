@@ -31,9 +31,9 @@ if [ "${UP_OR_DOWN}" == "down" ]; then
   exit 0
 fi
 
-MASTER_NODE="orchestrator_${NAME}_master"
-SLAVE01_NODE="orchestrator_${NAME}_slave01"
-SLAVE02_NODE="orchestrator_${NAME}_slave02"
+MASTER_NODE="replication_${NAME}_master"
+SLAVE01_NODE="replication_${NAME}_slave_1"
+SLAVE02_NODE="replication_${NAME}_slave_2"
 
 EXEC_MASTER="docker exec ${MASTER_NODE} mysql -uroot -proot -e "
 EXEC_SLAVE01="docker exec ${SLAVE01_NODE} mysql -uroot -proot -e "

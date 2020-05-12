@@ -34,9 +34,9 @@ fi
 
 NAME=$(set_docker_compose_project_name .env)
 
-ORCHESTRATOR_NODE_1="orchestrator_${NAME}_orchestrator01"
-ORCHESTRATOR_NODE_2="orchestrator_${NAME}_orchestrator02"
-ORCHESTRATOR_NODE_3="orchestrator_${NAME}_orchestrator03"
+ORCHESTRATOR_NODE_1="orchestrator_${NAME}_orchestrator_1"
+ORCHESTRATOR_NODE_2="orchestrator_${NAME}_orchestrator_2"
+ORCHESTRATOR_NODE_3="orchestrator_${NAME}_orchestrator_3"
 
 EXEC_MASTER="docker exec ${MASTER_NODE} mysql -uroot -proot -e "
 
@@ -45,7 +45,7 @@ EXEC_MASTER="docker exec ${MASTER_NODE} mysql -uroot -proot -e "
 ORCHESTRATOR_NODES_ARRAY="\"${ORCHESTRATOR_NODE_1}\",\"${ORCHESTRATOR_NODE_2}\",\"${ORCHESTRATOR_NODE_3}\""
 
 for i in 1 2 3; do
-  rm cnf_files/orchestrator_$i.cnf
+  rm cnf_files/orchestrator_$i.cnf 2>/dev/null
   cp cnf_files/orchestrator.cnf cnf_files/orchestrator_$i.cnf
   sed -i "s/RAFT_NODES_ARRAY/${ORCHESTRATOR_NODES_ARRAY}/" cnf_files/orchestrator_$i.cnf
 done
