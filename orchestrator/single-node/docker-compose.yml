@@ -1,0 +1,18 @@
+version: '3.5'
+services:
+  orchestrator:
+    image: ${ORCHESTRATOR_IMAGE}:${ORCHESTRATOR_TAG}
+    container_name: orchestrator_${COMPOSE_PROJECT_NAME}_orchestrator
+    hostname: orchestrator_${COMPOSE_PROJECT_NAME}_orchestrator
+    networks:
+      orch_network:
+    ports:
+      - 3000
+    volumes:
+      - ./cnf_files/orchestrator.cnf:/etc/orchestrator.conf.json
+
+networks:
+  orch_network:
+    name: ${NETWORK_NAME}
+    driver: bridge
+

@@ -1,0 +1,6 @@
+  ,
+  "RaftEnabled": true,
+  "RaftDataDir": "/var/lib/orchestrator",
+  "RaftBind": "",
+  "DefaultRaftPort": 10008,
+  "RaftNodes": []

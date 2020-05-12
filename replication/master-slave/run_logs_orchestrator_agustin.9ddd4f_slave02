@@ -1,0 +1,4 @@
+#!/bin/bash
+
+docker logs -f orchestrator_agustin.9ddd4f_slave02
+

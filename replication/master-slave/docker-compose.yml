@@ -1,0 +1,45 @@
+version: '3.5'
+services:
+
+  master:
+    image: ${MYSQL_IMAGE}:${MYSQL_TAG}
+    container_name: orchestrator_${COMPOSE_PROJECT_NAME}_master
+    hostname: orchestrator_${COMPOSE_PROJECT_NAME}_master
+    networks:
+      docker_g_network:
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - ./cnf_files/my.cnf.master:/etc/my.cnf
+
+  slave01:
+    image: ${MYSQL_IMAGE}:${MYSQL_TAG}
+    container_name: orchestrator_${COMPOSE_PROJECT_NAME}_slave01
+    hostname: orchestrator_${COMPOSE_PROJECT_NAME}_slave01
+    networks:
+      docker_g_network:
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    depends_on:
+      - master
+    volumes:
+      - ./cnf_files/my.cnf.slave01:/etc/my.cnf
+
+  slave02:
+    image: ${MYSQL_IMAGE}:${MYSQL_TAG}
+    container_name: orchestrator_${COMPOSE_PROJECT_NAME}_slave02
+    hostname: orchestrator_${COMPOSE_PROJECT_NAME}_slave02
+    networks:
+      docker_g_network:
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    depends_on:
+      - master
+    volumes:
+      - ./cnf_files/my.cnf.slave02:/etc/my.cnf
+
+networks:
+  docker_g_network:
+    name: ${NETWORK_NAME}
+    driver: bridge
+

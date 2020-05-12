@@ -126,11 +126,12 @@
   "GraphitePath": "",
   "GraphiteConvertHostnameDotsToUnderscores": true,
   "FailMasterPromotionIfSQLThreadNotUpToDate": false,
-  "DelayMasterPromotionIfSQLThreadNotUpToDate": false
-  ,
+  "DelayMasterPromotionIfSQLThreadNotUpToDate": false,
+
   "RaftEnabled": true,
   "RaftDataDir": "/var/lib/orchestrator",
-  "RaftBind": "orchestrator_agustin.73b9f7_orchestrator01",
+  "RaftBind": "orchestrator_agustin.6a3446_orchestrator02",
   "DefaultRaftPort": 10008,
-  "RaftNodes": ["orchestrator_agustin.73b9f7_orchestrator01", "orchestrator_agustin.73b9f7_orchestrator02", "orchestrator_agustin.73b9f7_orchestrator03"]
+  "RaftNodes": ["orchestrator_agustin.6a3446_orchestrator01","orchestrator_agustin.6a3446_orchestrator02","orchestrator_agustin.6a3446_orchestrator03"]
 }
+
