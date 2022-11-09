@@ -1,0 +1,36 @@
+services:
+
+  node01:
+    image: ${IMAGE}:${TAG}
+    container_name: ${COMPOSE_PROJECT_NAME}_node01
+    networks:
+      pg_network:
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRESQL_PASSWORD}
+#    volumes:
+#      - ./pxc_cnf_files/my.cnf.node01:/etc/mysql/conf.d/my.cnf
+
+  node02:
+    image: ${IMAGE}:${TAG}
+    container_name: ${COMPOSE_PROJECT_NAME}_node02
+    networks:
+      pg_network:
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRESQL_PASSWORD}
+#      DISCOVERY_SERVICE: ${COMPOSE_PROJECT_NAME}_etcd:2379
+    depends_on:
+      - node01
+#    volumes:
+#      - ./pxc_cnf_files/my.cnf.node02:/etc/mysql/conf.d/my.cnf
+
+networks:
+  pg_network:
+    driver: bridge
+
+# TESTING SECTION
+#volumes:
+#  small_docker_disk:
+#    external: true
+ 
+# under volumes section for each node add:
+#      - small_docker_disk:/mnt/sds
