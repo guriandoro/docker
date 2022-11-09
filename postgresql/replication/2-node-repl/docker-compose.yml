@@ -20,6 +20,7 @@ services:
 #      DISCOVERY_SERVICE: ${COMPOSE_PROJECT_NAME}_etcd:2379
     depends_on:
       - node01
+#    command: sleep 99999999
 #    volumes:
 #      - ./pxc_cnf_files/my.cnf.node02:/etc/mysql/conf.d/my.cnf
 

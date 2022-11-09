@@ -59,7 +59,7 @@ if [ "${UP_OR_DOWN}" == "up" ]; then
     echo "run_bash_${CONTAINER}"
     create_script run_bash_${CONTAINER} "docker exec -it ${CONTAINER} bash"
     echo "run_psql_${CONTAINER}"
-    create_script run_mysql_${CONTAINER} "docker exec -it ${CONTAINER} psql -upostgres \"\$@\""
+    create_script run_psql_${CONTAINER} "docker exec -it ${CONTAINER} psql -U postgres \"\$@\""
     echo
   done;
 
